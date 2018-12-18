@@ -20,6 +20,11 @@
                 <a href="dashboard.php"><i class="ion ion-speedometer"></i><span>Dashboard</span></a>
             </li>
             
+            <li class="menu-header">Algemeen</li>
+            <li {% if menuItem is defined and menuItem == "profile" %} class="active" {% endif %}>
+                <a href="profile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
+            </li>
+            
         </ul>
 
         <div class="p-3 mt-4 mb-4">

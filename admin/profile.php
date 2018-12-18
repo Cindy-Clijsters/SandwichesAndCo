@@ -6,14 +6,14 @@ require_once($root . '/vendor/autoload.php');
 use App\Business\AdministratorService;
 use App\Entities\Administrator;
 
-// Check if administrator is logged in correctly
+// Check if the administrator is logged in correctly
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 if (!array_key_exists('adminId', $_SESSION)) {
     
-    header("location:login.php");  
+    header("location:login.php");
     exit(0);
     
 } else {
@@ -26,7 +26,6 @@ if (!array_key_exists('adminId', $_SESSION)) {
         ($administrator === null)
         || ($administrator->getStatus() !== Administrator::STATUS_ACTIVE)
     ) {
-        
         session_destroy();
         
         header("location:login.php");
@@ -35,15 +34,15 @@ if (!array_key_exists('adminId', $_SESSION)) {
     
 }
 
-// Show the view
+//Show the view
 $twigLoader = new Twig_Loader_Filesystem($root . '/admin/presentation');
 $twig       = new Twig_Environment($twigLoader);
 
 echo $twig->render(
-    "dashboard.php",
+    "profile.php",
     [
-        "menuItem"       => "dashboard",
-        "companyName"    => $_SESSION['companyName'],
-        "administrator"  => $administrator
-    ]        
+        "menuItem"      => "profile",
+        "companyName"   => $_SESSION['companyName'],
+        "administrator" => $administrator
+    ]
 );

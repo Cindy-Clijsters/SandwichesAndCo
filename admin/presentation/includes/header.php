@@ -10,6 +10,12 @@
             <i class="ion ion-android-person d-lg-none"></i>
             <div class="d-sm-none d-lg-inline-block">Hallo, {{ administrator.fullName }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
+                <a href="dashboard.php" class="dropdown-item has-icon">
+                    <i class="ion ion-speedometer"></i> Dashboard
+                </a>
+                <a href="profile.php" class="dropdown-item has-icon">
+                    <i class="ion ion-android-person"></i> Mijn profiel
+                </a>
                 <a href="logout.php" class="dropdown-item has-icon">
                     <i class="ion ion-log-out"></i> Afmelden
                 </a>
