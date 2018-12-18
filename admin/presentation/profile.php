@@ -66,7 +66,7 @@
                                                 Status:
                                             </div>
                                             <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
-                                                {{ administrator.status }}
+                                                {{ translateAdministratorStatus(administrator.status) }}
                                             </div>
                                         </div>  
                                         

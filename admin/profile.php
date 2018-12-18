@@ -5,6 +5,7 @@ require_once($root . '/vendor/autoload.php');
 
 use App\Business\AdministratorService;
 use App\Entities\Administrator;
+use App\Twig\ProjectTwigExtension;
 
 // Check if the administrator is logged in correctly
 if (session_status() === PHP_SESSION_NONE) {
@@ -37,6 +38,7 @@ if (!array_key_exists('adminId', $_SESSION)) {
 //Show the view
 $twigLoader = new Twig_Loader_Filesystem($root . '/admin/presentation');
 $twig       = new Twig_Environment($twigLoader);
+$twig->addExtension(new ProjectTwigExtension());
 
 echo $twig->render(
     "profile.php",
