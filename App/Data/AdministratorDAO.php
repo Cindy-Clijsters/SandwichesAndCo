@@ -11,6 +11,51 @@ use DateTime;
 class AdministratorDAO
 {
     /**
+     * Get the information of the administrator specified by the id
+     * 
+     * @param int $id
+     * 
+     * @return Administrator|null
+     */
+    public function getById(int $id):?Administrator
+    {
+        $administrator = null;
+       
+        // Generate the query
+        $sql = "SELECT id, first_name, last_name, email, password, status, created_at
+                FROM administrators
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPDO();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        // Get the information
+        if ($stmt->rowCount() > 0) {
+            
+            $row       = $stmt->fetch(PDO::FETCH_ASSOC);
+            $createdAt = new DateTime($row['created_at']);
+            
+            $administrator = new Administrator(
+                $row['first_name'],
+                $row['last_name'],
+                $row['email'],
+                $row['password'],
+                $row['status']
+            );
+            
+            $administrator->setId(intVal($row['id']))
+                          ->setCreatedAt($createdAt);
+        }
+        
+        // Return the result
+        return $administrator;
+    }
+    
+    /**
      * Get the information of the administrator specified by the email address
      * 
      * @param string $email

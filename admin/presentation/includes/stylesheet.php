@@ -4,5 +4,5 @@
 
 <link rel="stylesheet" href="assets/modules/summernote/summernote-lite.css">
 <link rel="stylesheet" href="assets/modules/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet" href="assets/dss/demo.css">
+<link rel="stylesheet" href="assets/css/demo.css">
 <link rel="stylesheet" href="assets/css/style.css">

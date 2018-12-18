@@ -111,6 +111,16 @@ abstract class Person
     }
     
     /**
+     * Get the full name
+     * 
+     * @return string
+     */
+    public function getFullName():string
+    {
+        return $this->firstName . " " . $this->lastName;
+    }
+    
+    /**
      * Set the email address
      * 
      * @param string $email
