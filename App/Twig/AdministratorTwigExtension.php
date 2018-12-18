@@ -11,7 +11,7 @@ use App\Entities\Administrator;
 use Twig_Extension;
 use Twig_Function;
 
-class ProjectTwigExtension extends Twig_Extension
+class AdministratorTwigExtension extends Twig_Extension
 {
     /**
      * Get the new functions

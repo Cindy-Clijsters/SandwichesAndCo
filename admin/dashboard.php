@@ -4,6 +4,7 @@ $root = dirname(__FILE__, 2);
 require_once($root . '/vendor/autoload.php');
 
 use App\Business\AdministratorService;
+use App\Business\TwigService;
 use App\Entities\Administrator;
 
 // Check if administrator is logged in correctly
@@ -36,14 +37,14 @@ if (!array_key_exists('adminId', $_SESSION)) {
 }
 
 // Show the view
-$twigLoader = new Twig_Loader_Filesystem($root . '/admin/presentation');
-$twig       = new Twig_Environment($twigLoader);
+$twigSvc = new TwigService();
 
-echo $twig->render(
-    "dashboard.php",
+echo $twigSvc->generateView(
+    $root . '/admin/presentation',
+    'dashboard.php',
     [
         "menuItem"       => "dashboard",
         "companyName"    => $_SESSION['companyName'],
         "administrator"  => $administrator
-    ]        
+    ]  
 );

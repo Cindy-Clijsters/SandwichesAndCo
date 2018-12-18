@@ -1,5 +1,4 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -15,6 +14,7 @@ require_once($root . '/vendor/autoload.php');
 
 use App\Business\AdministratorService;
 use App\Business\CompanyService;
+use App\Business\TwigService;
 use App\Business\ValidationService;
 use App\Entities\Administrator;
 
@@ -87,13 +87,13 @@ if ($_POST) {
 }
 
 // Show the view
-$twigLoader = new Twig_Loader_Filesystem($root . '/admin/presentation');
-$twig       = new Twig_Environment($twigLoader);
+$twigSvc = new TwigService();
 
-echo $twig->render(
-    "login.php",
+echo $twigSvc->generateView(
+    $root . '/admin/presentation',
+    'login.php',
     [
         "company" => $company,
         "errors"  => $errors
-    ]        
+    ]  
 );
