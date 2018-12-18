@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <title><!-- TODO@CINDY COMPANY NAAM --></title>
+    <title>{{ company.name }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<!-- TODO@CINDY COMPANY NAAM -->" />
-    <meta name="keywords" content="sandwiches, take away" />
+    <meta name="description" content="{{ company.name }}" />
+    <meta name="keywords" content="{{ company.name }}, sandwiches, take away" />
     <meta name="author" content="Cindy Clijsters" />
 
     {{ include('includes/stylesheet.php') }}
@@ -37,7 +37,7 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-12 col-lg-8 section-heading">
                             <h2 class="heading mb-5">Over ons</h2>
-                            <!-- TODO@CINDY COMPANY ABOUT US -->
+                            {{ company.aboutUs|raw }}
                         </div>
                     </div>
                 </div>

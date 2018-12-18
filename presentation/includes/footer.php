@@ -4,7 +4,7 @@
             <div class="col-md-4 mb-5">
                 <div class="footer-widget">
                     <h3 class="mb-4">Over ons</h3>
-                    <!-- TODO@CINDY COMPANY ABOUT US -->
+                    {{ company.aboutUsSummary|raw }}
                 </div>
 
                 <div class="footer-widget">
@@ -21,11 +21,11 @@
             <div class="col-md-4 mb-5">
                 <div class="footer-widget">
                     <h3 class="mb-4">Adres</h3>
-                    <p><!-- TODO@CINDY COMPANY ADDRESS --><br>
-                    <!-- TODO@CINDY COMPANY POSTALCODE --> <!-- TODO@CINDY COMPANY POSTALCODE --><br><br>
-                    Tel: <a href="tel:<!-- TODO@CINDY COMPANY TELEPHONE -->"><!-- TODO@CINDY COMPANY TELEPHONE --></a><br>
-                    Email: <a href="mailto:<!-- TODO@CINDY COMPANY EMAIL -->"><!-- TODO@CINDY COMPANY EMAIL --></a><br>
-                    BTW: <!-- TODO@CINDY COMPANY VAT NUMBER --></p>
+                    <p>{{ company.address }}<br>
+                    {{ company.postalCode }} {{ company.city }}<br><br>
+                    Tel: <a href="tel:{{ company.telephone }}">{{ company.telephone }}</a><br>
+                    Email: <a href="mailto:{{ company.email }}">{{ company.email }}</a><br>
+                    BTW: {{ company.vatNumber }}</p>
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
 
         <div class="row pt-5">
             <div class="col-md-12 text-center">
-                <p>Copyright &copy; {{ "now"|date("Y") }}  <!-- TODO@CINDY COMPANY NAAM --></p>
+                <p>Copyright &copy; {{ "now"|date("Y") }} {{ company.name }}</p>
             </div>
         </div>
     </div>
