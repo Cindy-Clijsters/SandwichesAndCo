@@ -50,4 +50,32 @@ class AdministratorService
         $administratorDAO = new AdministratorDAO();
         $administratorDAO->update($administrator);
     }
+    
+    /**
+     * Get the information of the logged in administrator
+     * 
+     * @return Administrator|null
+     */
+    public function getLoggedInAdministrator():?Administrator
+    {
+        $result = null;
+        
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if (array_key_exists('adminId', $_SESSION)) {
+            
+            $administrator = $this->getById($_SESSION['adminId']);
+            
+            if (
+                $administrator !== null
+                && $administrator->getStatus() === Administrator::STATUS_ACTIVE
+            ) {
+               $result = $administrator; 
+            }
+        }
+        
+        return $result;
+    }
 }
