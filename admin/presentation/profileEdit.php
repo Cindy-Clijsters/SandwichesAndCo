@@ -60,7 +60,7 @@
                                                 <label for="email">E-mail <i class="ion ion-android-star"></i></label>
                                                 <input type="email" class="form-control {% if errors.email is defined %}is-invalid{% endif %}" id="email" name="email" value="{{ email }}" tabindex="3">
                                                 {% if errors.email is defined %}
-                                                    <div class="invalid-feedback"><?php echo $errors->email; ?></div>
+                                                    <div class="invalid-feedback">{{ errors.email }}</div>
                                                 {% endif %}
                                             </div>
 
@@ -69,7 +69,7 @@
                                                 <a href="profile.php" class="btn btn-sm btn-outline-primary mt-2" tabindex="5">Annuleren</a>
                                             </div>
                                             
-                                            <small><i>Velden met een <i class="ion ion-android-star"></i> zijn verplicht.<i></small>
+                                            <small><i>Velden met een <i class="ion ion-android-star"></i> zijn verplicht.</i></small>
                                             
                                         </form>
                                         

@@ -6,6 +6,7 @@ require_once($root . '/vendor/autoload.php');
 
 use App\Business\AdministratorService;
 use App\Business\TwigService;
+use App\Business\ValidationService;
 use App\Entities\Administrator;
 
 // Check if the administrator is logged in correctly
@@ -41,6 +42,61 @@ $firstName = filter_input(INPUT_POST, 'first-name') ?? $administrator->getFirstN
 $lastName  = filter_input(INPUT_POST, 'last-name') ?? $administrator->getLastName();
 $email     = filter_input(INPUT_POST, 'email') ?? $administrator->getEmail();
 
+// Check if the form is posted
+$errors = new stdClass();
+$errors->isValid = true;
+
+if ($_POST) {
+    
+    // Validate the fields
+    $validationSvc = new ValidationService();
+    
+    $firstNameErrors = $validationSvc->checkRequired($firstName);
+    
+    if ($firstNameErrors == '') {
+        $firstNameErrors = $validationSvc->checkMaxLength($firstName, 50);
+    }
+    
+    if ($firstNameErrors !== '') {
+        $errors->firstName = $firstNameErrors;
+        $errors->isValid   = false;
+    }
+    
+    $lastNameErrors = $validationSvc->checkRequired($lastName);
+    
+    if ($lastNameErrors === '') {
+        $lastNameErrors = $validationSvc->checkMaxLength($lastName, 50);
+    }
+    
+    if ($lastNameErrors !== '') {
+        $errors->lastName = $lastNameErrors;
+        $errors->isValid  = false;
+    }
+    
+    $emailErrors = $validationSvc->checkRequired($email);
+    
+    if ($emailErrors === '') {
+        $emailErrors = $validationSvc->checkMaxLength($email, 100);
+    }
+    
+    if ($emailErrors === '') {
+        $emailErrors = $validationSvc->checkEmail($email);
+    }
+    
+    if ($emailErrors === '') {
+        $emailErrors = $validationSvc->checkUniqueAdministratorMail(
+            $email,
+            $administrator->getId()
+        );
+    }
+    
+    if ($emailErrors !== '') {
+        $errors->email   = $emailErrors;
+        $errors->isValid = false;
+    }
+    
+}
+
 // Show the view
 $twigSvc = new TwigService();
 
@@ -53,6 +109,7 @@ echo $twigSvc->generateView(
         "administrator" => $administrator,
         "firstName"     => $firstName,
         "lastName"      => $lastName,
-        "email"         => $email
+        "email"         => $email,
+        "errors"        => $errors
     ]
 );

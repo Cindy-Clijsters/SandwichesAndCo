@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Business;
 
+use App\Business\AdministratorService;
+
 /**
  * Validation services
  * 
@@ -28,7 +30,7 @@ class ValidationService
         return $result;
     }    
     
-        /**
+    /**
      * Check the max length of the value
      * 
      * @param string $value
@@ -64,4 +66,32 @@ class ValidationService
         
         return $result;
     }    
+    
+    /**
+     * Check if the email adress of the administrator is unique
+     * 
+     * @param string $email
+     * @param int $administratorId
+     * 
+     * @return string
+     */
+    public function checkUniqueAdministratorMail(
+        string $email,
+        int $administratorId
+    ):string
+    {
+        $result = '';
+        
+        $administratorSvc = new AdministratorService();
+        $administrator    = $administratorSvc->getByEmail($email);
+        
+        if (
+            ($administrator !== null)
+            && ($administrator->getId() !== $administratorId)
+        ) {
+            $result = 'Dit veld moet een uniek e-mail adres bevatten;';
+        }
+        
+        return $result;
+    }
 }
