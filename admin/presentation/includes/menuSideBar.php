@@ -24,6 +24,9 @@
             <li {% if menuItem is defined and menuItem == "profile" %} class="active" {% endif %}>
                 <a href="profile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
             </li>
+            <li {% if menuItem is defined and menuItem == "companyProfile" %} class="active" {% endif %}>
+                <a href="companyProfile.php"><i class="ion ion-android-person"></i><span>Bedrijfsprofiel</span></a>
+            </li>            
             
         </ul>
 
