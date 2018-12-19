@@ -31,45 +31,25 @@ if ($_POST) {
     // Validate the fields
     $validationSvc = new ValidationService();
 
-    $oldPasswordErrors = $validationSvc->checkRequired($oldPassword);
-    
-    if ($oldPasswordErrors === '') {
-        $oldPasswordErrors = $validationSvc->checkMaxLength($oldPassword, 50);
-    }
+    $oldPasswordErrors = $validationSvc->validateTextField($oldPassword, 50);
     
     if ($oldPasswordErrors !== '') {
         $errors->oldPassword = $oldPasswordErrors;
         $errors->isValid     = false;
     }
     
-    $passwordErrors = $validationSvc->checkRequired($password);
-    
-    if ($passwordErrors === '') {
-        $passwordErrors = $validationSvc->checkMinLength($password, 8);
-    }
-    
-    if ($passwordErrors === '') {
-        $passwordErrors = $validationSvc->checkMaxLength($password, 50);
-    }
-    
-    if ($passwordErrors === '') {
-        $passwordErrors = $validationSvc->checkSafePassword($password);
-    }
+    $passwordErrors = $validationSvc->validatePasswordField($password, 50, 8);
     
     if ($passwordErrors !== '') {
         $errors->password = $passwordErrors;
         $errors->isValid  = false;
     }
     
-    $confirmPasswordErrors = $validationSvc->checkRequired($confirmPassword);
-
-    if ($confirmPasswordErrors === '') {
-        $confirmPasswordErrors = $validationSvc->checkMaxLength($confirmPassword, 50);
-    }
-    
-    if ($passwordErrors === '' && $confirmPasswordErrors === '') {
-        $confirmPasswordErrors = $validationSvc->checkConfirmPassword($password, $confirmPassword);
-    }
+    $confirmPasswordErrors = $validationSvc->validateConfirmPasswordField(
+        $confirmPassword,
+        $password,
+        50
+    );
 
     if ($confirmPasswordErrors !== '') {
         $errors->confirmPassword = $confirmPasswordErrors;

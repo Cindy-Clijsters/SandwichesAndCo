@@ -31,26 +31,14 @@ if ($_POST) {
     
     $validationSvc = new ValidationService();
     
-    $emailErrors = $validationSvc->checkRequired($email);
-    
-    if ($emailErrors === '') {
-        $emailErrors = $validationSvc->checkMaxLength($email, 100);
-    }
-    
-    if ($emailErrors === '') {
-        $emailErrors = $validationSvc->checkEmail($email);
-    }
+    $emailErrors = $validationSvc->validateEmailField($email, 100);
     
     if ($emailErrors !== '') {
         $errors->email   = $emailErrors;
         $errors->isValid = false;
     }
     
-    $passwordErrors = $validationSvc->checkRequired($password);
-    
-    if ($passwordErrors === '') {
-        $passwordErrors = $validationSvc->checkMaxLength($password, 50);
-    }
+    $passwordErrors = $validationSvc->validateTextField($password, 50);
     
     if ($passwordErrors !== '') {
         $errors->password = $passwordErrors;
