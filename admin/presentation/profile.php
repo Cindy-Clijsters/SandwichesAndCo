@@ -82,6 +82,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <a href="profileEdit.php" class="btn btn-sm btn-primary mt-4" tabindex="1" autofocus>Mijn gegevens wijzigen</a>
+                                                <a href="passwordEdit.php" class="btn btn-sm btn-primary mt-4" tabindex="1" autofocus>Mijn wachtwoord wijzigen</a>
                                             </div>
                                         </div>                                        
                                         
