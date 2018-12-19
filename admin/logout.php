@@ -1,9 +1,10 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$root = dirname(__FILE__, 2);
 
-session_destroy();
+require_once($root . '/vendor/autoload.php');
 
-header("location: login.php");
-exit(0);
+use App\Business\AdministratorService;
+
+// Logout
+$administratorSvc = new AdministratorService();
+$administratorSvc->logOut();

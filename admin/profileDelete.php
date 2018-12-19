@@ -10,10 +10,7 @@ $administratorSvc = new AdministratorService;
 $administrator    = $administratorSvc->getLoggedInAdministrator();
 
 if ($administrator === null) {
-    session_destroy();
-
-    header("location:login.php");
-    exit(0);
+    $administratorSvc->logOut();
 }
 
 // Initialize view variables
@@ -55,10 +52,7 @@ if ($_POST) {
             $administratorSvc->delete($administrator);
             
             // Logout
-            session_destroy();
-
-            header("location:login.php");
-            exit(0);
+            $administratorSvc->logOut();
             
         } else {
             

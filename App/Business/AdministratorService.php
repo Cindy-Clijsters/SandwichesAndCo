@@ -104,4 +104,21 @@ class AdministratorService
         
         return $result;
     }
+    
+    /**
+     * Destroy session and redirect to login page
+     * 
+     * @return void
+     */
+    public function logout():void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        session_destroy();
+
+        header("location: login.php");
+        exit(0);
+    }
 }
