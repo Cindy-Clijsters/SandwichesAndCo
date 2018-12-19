@@ -3,8 +3,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\AdministratorService;
-use App\Business\TwigService;
+use App\Business\{AdministratorService, TwigService};
 use App\Entities\Administrator;
 
 // Check if administrator is logged in correctly

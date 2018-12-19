@@ -3,8 +3,7 @@ $root = dirname(__FILE__, 1);
 
 require_once($root . '/vendor/autoload.php');
         
-use App\Business\CompanyService;
-use App\Business\TwigService;
+use App\Business\{CompanyService, TwigService};
 	
 // Get the information to display the view
 $companySvc = new CompanyService();

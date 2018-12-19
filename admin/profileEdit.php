@@ -4,9 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\AdministratorService;
-use App\Business\TwigService;
-use App\Business\ValidationService;
+use App\Business\{AdministratorService, TwigService, ValidationService};
 use App\Entities\Administrator;
 
 // Check if the administrator is logged in correctly
