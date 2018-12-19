@@ -87,7 +87,25 @@
                                         </div>                                        
                                         
                                     </div>
-                                </div>                               
+                                </div>     
+                                
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Mijn profiel verwijderen</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <strong>Let op!</strong> Als je je profiel verwijdert, kan je dit niet meer herstellen.
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <a href="profileDelete.php" class="btn btn-sm btn-danger mt-4" tabindex="3"><i class="ion ion-alert mr-2"></i> Mijn profiel verwijderen</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                  
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,7 @@
                                         <form action="passwordEdit.php" method="post" novalidate>
                                             
                                             <div class="form-group">
-                                                <label for="old-password">Oud wachtwoord <i class="ion ion-android-star"></i>:</label>
+                                                <label for="old-password">Oud wachtwoord <i class="ion ion-android-star"></i></label>
                                                 <input type="password" class="form-control {% if errors.oldPassword is defined %}is-invalid{% endif %}" id="old-password" name="old-password" tabindex="1" autofocus>
                                                 {% if errors.oldPassword is defined %}
                                                     <div class="invalid-feedback">{{ errors.oldPassword }}</div>
@@ -50,7 +50,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="password">Wachtwoord <i class="ion ion-android-star"></i>:</label>
+                                                <label for="password">Wachtwoord <i class="ion ion-android-star"></i></label>
                                                 <input type="password" class="form-control {% if errors.password is defined %}is-invalid{% endif %}" id="password" name="password" tabindex="2">
                                                 {% if errors.password is defined %}
                                                     <div class="invalid-feedback">{{ errors.password }}</div>
@@ -58,7 +58,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="confirm-password">Wachtwoord bevestigen <i class="ion ion-android-star"></i>:</label>
+                                                <label for="confirm-password">Wachtwoord bevestigen <i class="ion ion-android-star"></i></label>
                                                 <input type="password" class="form-control {% if errors.confirmPassword is defined %}is-invalid{% endif %}" id="confirm-password" name="confirm-password" tabindex="3">
                                                 {% if errors.confirmPassword is defined %}
                                                     <div class="invalid-feedback">{{ errors.confirmPassword }}</div>
