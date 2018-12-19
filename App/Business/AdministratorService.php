@@ -52,6 +52,32 @@ class AdministratorService
     }
     
     /**
+     * Delete an existing administrator
+     * 
+     * @param Administrator $administrator
+     * 
+     * @return void
+     */
+    public function delete(Administrator $administrator):void
+    {
+        $administratorDAO = new AdministratorDAO();
+        $administratorDAO->delete($administrator);
+    }
+    
+    /**
+     * Get the amount of administrators
+     * 
+     * @return int
+     */
+    public function getAmountAdministrators():int
+    {
+        $administratorDAO = new AdministratorDAO();
+        $amount           = $administratorDAO->getAmountAdministrators();
+        
+        return $amount;
+    }
+    
+    /**
      * Get the information of the logged in administrator
      * 
      * @return Administrator|null

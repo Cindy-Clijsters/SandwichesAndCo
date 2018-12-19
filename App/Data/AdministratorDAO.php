@@ -116,6 +116,58 @@ class AdministratorDAO
     }
     
     /**
+     * Delete an existing administrator
+     * 
+     * @param Administrator $administrator
+     * 
+     * @return void
+     */
+    public function delete(Administrator $administrator):void
+    {
+        // Generate the query
+        $sql = "DELETE FROM administrators
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DBConfig::getPDO();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $administrator->getId()
+        ]);
+        
+        // Close the connection
+        $pdo = null;
+    }
+    
+    /**
+     * Get the amount of administrators
+     * 
+     * @return int
+     */
+    public function getAmountAdministrators():int
+    {
+        $amount = 0;
+        
+        // Generate the query
+        $sql = "SELECT COUNT(id) AS amount 
+                FROM administrators";
+        
+        // Open the connection
+        $pdo = DBConfig::getPDO();
+
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+
+        $row    = $stmt->fetch(PDO::FETCH_ASSOC);
+        $amount = $row['amount'];
+            
+        return $amount;
+    }
+    
+    /**
      * Create a administrator from database row
      * 
      * @param array $row

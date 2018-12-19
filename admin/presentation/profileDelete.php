@@ -34,26 +34,34 @@
                                         <h4>Mijn profiel verwijderen</h4>
                                     </div>
                                     <div class="card-body">
+                                        
+                                        {% if message is not empty %}
+                                        
+                                            {{ message|raw}}
+                                        
+                                        {% else %}
                                        
-                                        <form action="profileDelete.php" method="post" novalidate>
+                                            <form action="profileDelete.php" method="post" novalidate>
 
-                                            <p class="mb-4">Geef je wachtwoord in om je profiel te verwijderen.<br>
-                                            <strong>Let op!</strong> Als je je profiel verwijdert, kan je dit niet meer herstellen.</p>
+                                                <p class="mb-4">Geef je wachtwoord in om je profiel te verwijderen.<br>
+                                                <strong>Let op!</strong> Als je je profiel verwijdert, kan je dit niet meer herstellen.</p>
 
-                                            <div class="form-group">
-                                                <label for="password">Wachtwoord <i class="ion ion-android-star"></i></label>
-                                                <input type="password" class="form-control {% if errors.password is defined %}is-invalid{% endif %}" id="password" name="password">
-                                                {% if errors.password is defined %}
-                                                    <div class="invalid-feedback">{{ errors.password }}</div>
-                                                {% endif %}                                             
-                                            </div>
+                                                <div class="form-group">
+                                                    <label for="password">Wachtwoord <i class="ion ion-android-star"></i></label>
+                                                    <input type="password" class="form-control {% if errors.password is defined %}is-invalid{% endif %}" id="password" name="password">
+                                                    {% if errors.password is defined %}
+                                                        <div class="invalid-feedback">{{ errors.password }}</div>
+                                                    {% endif %}                                             
+                                                </div>
 
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-sm btn-danger mt-2"><i class="ion ion-alert mr-2"></i>Mijn profiel verwijderen</button>
-                                                <a href="profile.php" class="btn btn-sm btn-outline-primary mt-2">Annuleren</a>
-                                            </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-sm btn-danger mt-2"><i class="ion ion-alert mr-2"></i>Mijn profiel verwijderen</button>
+                                                    <a href="profile.php" class="btn btn-sm btn-outline-primary mt-2">Annuleren</a>
+                                                </div>
 
-                                        </form>
+                                            </form>
+                                        
+                                        {% endif %}
                                         
                                     </div>
                                 </div>
