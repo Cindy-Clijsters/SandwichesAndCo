@@ -46,6 +46,8 @@ $email     = filter_input(INPUT_POST, 'email') ?? $administrator->getEmail();
 $errors = new stdClass();
 $errors->isValid = true;
 
+$successMessage = "";
+
 if ($_POST) {
     
     // Validate the fields
@@ -95,6 +97,20 @@ if ($_POST) {
         $errors->isValid = false;
     }
     
+    if ($errors->isValid === true) {
+        
+        // Update the administrator
+        $administrator->setFirstName($firstName)
+                      ->setLastName($lastName)
+                      ->setEmail($email);
+        
+        // Save the information of the user in the database
+        $administratorSvc->update($administrator);
+        
+        $successMessage = "Je gegevens zijn met succes gewijzigd.";
+        
+    }
+    
 }
 
 // Show the view
@@ -104,12 +120,13 @@ echo $twigSvc->generateView(
     $root . '/admin/presentation',
     'profileEdit.php',
     [
-        "menuItem"      => "profile",
-        "companyName"   => $_SESSION['companyName'],
-        "administrator" => $administrator,
-        "firstName"     => $firstName,
-        "lastName"      => $lastName,
-        "email"         => $email,
-        "errors"        => $errors
+        "menuItem"       => "profile",
+        "companyName"    => $_SESSION['companyName'],
+        "administrator"  => $administrator,
+        "firstName"      => $firstName,
+        "lastName"       => $lastName,
+        "email"          => $email,
+        "errors"         => $errors,
+        "successMessage" => $successMessage
     ]
 );

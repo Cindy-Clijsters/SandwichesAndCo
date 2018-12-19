@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="card-body">
                                         
-                                        {% if successMessage is defined %}
+                                        {% if successMessage is not empty %}
                                             <div class="alert alert-success">{{ successMessage }}</div>
                                         {% endif %}
                                         

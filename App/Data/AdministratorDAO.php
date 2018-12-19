@@ -81,6 +81,41 @@ class AdministratorDAO
     }
     
     /**
+     * Update an existing administrator
+     * 
+     * @param Administrator $administrator
+     * 
+     * @return void
+     */
+    public function update(Administrator $administrator):void
+    {
+        // Generate the query
+        $sql = "UPDATE administrators
+                SET first_name = :firstName,
+                    last_name = :lastName,
+                    email = :email,
+                    password = :password,
+                    status = :status
+                WHERE id = :id";
+        
+        // Open the connection           
+        $pdo = DbConfig::getPDO();
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':firstName' => $administrator->getFirstName(),
+            ':lastName'  => $administrator->getLastName(),
+            ':email'     => $administrator->getEmail(),
+            ':password'  => $administrator->getPassword(),
+            ':status'    => $administrator->getStatus(),
+            ':id'        => $administrator->getId()
+        ]);
+
+        // Close the connection
+        $pdo = null;        
+    }
+    
+    /**
      * Create a administrator from database row
      * 
      * @param array $row

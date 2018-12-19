@@ -37,4 +37,17 @@ class AdministratorService
         
         return $administrator;
     }
+    
+    /**
+     * Update an existing administrator
+     * 
+     * @param Administrator $administrator
+     * 
+     * @return void
+     */
+    public function update(Administrator $administrator):void
+    {
+        $administratorDAO = new AdministratorDAO();
+        $administratorDAO->update($administrator);
+    }
 }
