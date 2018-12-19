@@ -31,6 +31,25 @@ class ValidationService
     }    
     
     /**
+     * Check the min length of the value
+     * 
+     * @param string $value
+     * @param int $length
+     * 
+     * @return string
+     */
+    public function checkMinLength(string $value, int $length):string
+    {
+        $result = '';
+        
+        if (strlen($value) < $length) {
+            $result = 'Dit veld moet min. ' . $length . ' karakters bevatten.';
+        }
+        
+        return $result;
+    }
+    
+    /**
      * Check the max length of the value
      * 
      * @param string $value
@@ -62,6 +81,46 @@ class ValidationService
         
         if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
             $result = 'Dit veld moet een geldig e-mail adres bevatten.';
+        }
+        
+        return $result;
+    }    
+    
+    /**
+     * Check if the password is safe (must contain at least one letter, one 
+     * capital letter, one digit and one special character)
+     * 
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function checkSafePassword(string $value):string
+    {
+        $result = '';
+        
+        if (!preg_match('/^((?=.*\d)(?=.*[A-Z])(?=.*[a-z])((?=.*\W)|(?=.*\_)).{8,50})/', $value)) {
+            $result = 'Het wachtwoord moet minstens 1 letter, 1 hoofdletter, 1 cijfer en een speciaal karakter bevatten';
+        }
+        
+        return $result;
+    }    
+    
+    /**
+     * Check if the passwords agree
+     * 
+     * @param string $password
+     * @param string $confirmPassword
+     * 
+     * @return string
+     */
+    public function checkConfirmPassword(
+        string $password,
+        string $confirmPassword
+    ):string {
+        $result = '';
+        
+        if ($password !== $confirmPassword) {
+            $result = 'De wachtwoorden komen niet overeen.';
         }
         
         return $result;
