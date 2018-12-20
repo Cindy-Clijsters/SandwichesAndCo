@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <title>Beheer {{ companyName }} :: Mijn profiel</title>
+    <title>Beheer {{ companyName }} :: Bedrijfsprofiel</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
     <meta name="description" content="{{ companyName }}" />
@@ -31,7 +31,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Mijn gegevens</h4>
+                                        <h4>Bedrijfsgegevens</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -81,7 +81,7 @@
 
                                         <div class="row">
                                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-                                                Telefoon:
+                                                E-mail:
                                             </div>
                                             <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
                                                 <a href="mailto:{{ company.email }}">{{ company.email }}</a>
@@ -90,15 +90,20 @@
                                         
                                         <div class="row">
                                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-                                                BTW nummer:
+                                                Btw-nummer:
                                             </div>
                                             <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
                                                 {{ company.vatNumber }}
                                             </div>
                                         </div>                                           
+                                        
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <a href="companyProfileEdit.php" class="btn btn-sm btn-primary mt-4" tabindex="1" autofocus>Bedrijfsgegevens wijzigen</a>
+                                            </div>
+                                        </div>                                          
                                     </div>
-                                </div>     
-                                                                
+                                </div>                           
                             </div>
                         </div>
                     </div>

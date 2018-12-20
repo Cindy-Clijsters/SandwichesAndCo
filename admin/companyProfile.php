@@ -24,7 +24,7 @@ echo $twigSvc->generateView(
     $root . '/admin/presentation',
     'companyProfile.php',
     [
-        "menuItem"      => "profile",
+        "menuItem"      => "companyProfile",
         "companyName"   => $_SESSION['companyName'],
         "administrator" => $administrator,
         "company"       => $company

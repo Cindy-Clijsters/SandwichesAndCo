@@ -23,9 +23,9 @@
                     <h3 class="mb-4">Adres</h3>
                     <p>{{ company.address }}<br>
                     {{ company.postalCode }} {{ company.city }}<br><br>
-                    Tel: <a href="tel:{{ company.telephone }}">{{ company.telephone }}</a><br>
-                    Email: <a href="mailto:{{ company.email }}">{{ company.email }}</a><br>
-                    BTW: {{ company.vatNumber }}</p>
+                    Telefoonnummer: <a href="tel:{{ company.telephone }}">{{ company.telephone }}</a><br>
+                    E-mail: <a href="mailto:{{ company.email }}">{{ company.email }}</a><br>
+                    Btw-nummer: {{ company.vatNumber }}</p>
                 </div>
             </div>
 
