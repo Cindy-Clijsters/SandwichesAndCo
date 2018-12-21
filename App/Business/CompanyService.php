@@ -21,4 +21,17 @@ class CompanyService
         return $company;
     }
     
+    /**
+     * Update the information of the company
+     * 
+     * @param Company $company
+     * 
+     * @return void
+     */
+    public function update(Company $company):void
+    {
+        $companyDAO = new CompanyDAO();
+        $companyDAO->update($company);
+    }
+    
 }

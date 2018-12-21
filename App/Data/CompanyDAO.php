@@ -54,4 +54,45 @@ class CompanyDAO
         // Return the result
         return $company;
     }
+    
+    /**
+     * Update the information of the company
+     * 
+     * @param Company $company
+     * 
+     * @return void
+     */
+    public function update(Company $company):void
+    {
+       // Generate the query
+        $sql = "UPDATE company
+                SET name = :name,
+                    address = :address,
+                    postal_code = :postalCode,
+                    city = :city,
+                    telephone = :telephone,
+                    email = :email,
+                    vat_number = :vatNumber
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'name'       => $company->getName(),
+            'address'    => $company->getAddress(),
+            'postalCode' => $company->getPostalCode(),
+            'city'       => $company->getCity(),
+            'telephone'  => $company->getTelephone(),
+            'email'      => $company->getEmail(),
+            'vatNumber'  => $company->getVatNumber(),
+            'id'         => $company->getId()
+        ]);
+        
+        // Close the connection
+        $pdo = null;
+               
+    }
 }

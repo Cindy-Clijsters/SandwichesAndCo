@@ -77,7 +77,7 @@
                                                 <label for="telephone">Telefoon</label>
                                                 <input type="input" class="form-control {% if errors.telephone is defined %}is-invalid{% endif %}" id="telephone" name="telephone" value="{{ tmpCompany.telephone}}" tabindex="5">
                                                 {% if errors.telephone is defined %}
-                                                    <div class="invalid-feedback">{{ telephone}}</div>
+                                                    <div class="invalid-feedback">{{ errors.telephone}}</div>
                                                 {% endif %}
                                             </div>
 
@@ -85,7 +85,7 @@
                                                 <label for="mail">E-mail <i class="ion ion-android-star"></i></label>
                                                 <input type="input" class="form-control {% if errors.email is defined %}is-invalid{% endif %}" id="email" name="email" value="{{ tmpCompany.email}}" tabindex="6">
                                                 {% if errors.email is defined %}
-                                                    <div class="invalid-feedback">{{ email }}</div>
+                                                    <div class="invalid-feedback">{{ errors.email }}</div>
                                                 {% endif %}
                                             </div>
                                         
@@ -93,7 +93,7 @@
                                                 <label for="vat-number">Btw-nummer</label>
                                                 <input type="input" class="form-control {% if errors.vatNumber is defined %}is-invalid{% endif %}" id="vat-number" name="vat-number" value="{{ tmpCompany.vatNumber }}" tabindex="7">
                                                 {% if errors.vatNumber is defined %}
-                                                    <div class="invalid-feedback">{{ mail }}</div>
+                                                    <div class="invalid-feedback">{{ errors.vatNumber }}</div>
                                                 {% endif %}
                                             </div>
 

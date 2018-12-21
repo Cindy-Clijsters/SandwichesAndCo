@@ -27,7 +27,7 @@ class ValidationService
         ?int $minLength = null
     ):string {
         $result = $this->checkRequired($value);
-            
+        
         if ($result === '') {
             $result = $this->checkMaxLength($value, $maxLength);
         }
@@ -183,7 +183,7 @@ class ValidationService
      * 
      * @return string
      */
-    private function checkMaxLength(string $value, int $length):string
+    public function checkMaxLength(string $value, int $length):string
     {
         $result = '';
         
@@ -251,4 +251,23 @@ class ValidationService
         
         return $result;
     }      
+    
+    /**
+     * Check if the postal code is valid 
+     * (4 digital number, can't begin with 0)
+     * 
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function checkValidPostalCode(string $value):string
+    {
+        $result = '';
+        
+        if (!preg_match('/^[1-9][0-9]{3}/', $value)) {
+            $result = 'Dit veld moet een geldige postcode bevatten.';
+        }
+        
+        return $result;
+    }
 }

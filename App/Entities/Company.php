@@ -55,7 +55,7 @@ class Company
      */
     public function getId():int
     {
-        return $this;
+        return $this->id;
     }
     
     /**
