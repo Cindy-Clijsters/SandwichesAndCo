@@ -272,7 +272,7 @@ class ValidationService
     }
     
     /**
-     * Check if the vat number is valid
+     * Check if the vat number is valid (only BE numbers)
      * 
      * @param string $value
      * 
@@ -288,5 +288,26 @@ class ValidationService
         
         return $result;
     }
+    
+    /**
+     * Check if the phone number is valid (only BE numbers)
+     * 
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function checkValidTelephoneNumber(string $value):string
+    {
+        $result = '';
+        
+        if (
+            !preg_match('/^\d{3,4}\/?\d{2}\s?\d{2}\s?\d{2}$/', $value)
+            && !preg_match('/^\d{2}\/?\d{3}\s?\d{2}\s?\d{2}$/', $value)
+        ) {
+            $result = 'Dit veld heeft een foutief formaat.';;
+        }
+        
+        return $result;
+    }  
         
 }

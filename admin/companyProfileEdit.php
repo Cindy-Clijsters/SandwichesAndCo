@@ -72,6 +72,10 @@ if ($_POST) {
     
     $telephoneErrors = $validationSvc->checkMaxLength($tmpCompany->telephone, 20);
     
+    if ($telephoneErrors === '') {
+        $telephoneErrors = $validationSvc->checkValidTelephoneNumber($tmpCompany->telephone);
+    }
+    
     if ($telephoneErrors !== '') {
         $errors->telephone = $telephoneErrors;
         $errors->isValid   = false;
