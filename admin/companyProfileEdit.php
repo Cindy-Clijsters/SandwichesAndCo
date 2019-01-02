@@ -86,6 +86,10 @@ if ($_POST) {
     
     $vatNumberErrors = $validationSvc->checkMaxLength($tmpCompany->vatNumber, 20);
     
+    if ($vatNumberErrors === '') {
+        $vatNumberErrors = $validationSvc->checkValidVatNumber($tmpCompany->vatNumber);
+    }
+    
     if ($vatNumberErrors !== '') {
         $errors->vatNumber = $vatNumberErrors;
         $errors->isValid   = false;
@@ -106,7 +110,7 @@ if ($_POST) {
         $companySvc->update($company);
         
         // Set the success message
-        $successMessage = "De bedrijfsgegevens zijn met success gewijzigd.";
+        $successMessage = "De bedrijfsgegevens zijn met succes gewijzigd.";
         
         $_SESSION['companyName'] = $tmpCompany->name;
         

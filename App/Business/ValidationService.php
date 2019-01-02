@@ -270,4 +270,23 @@ class ValidationService
         
         return $result;
     }
+    
+    /**
+     * Check if the vat number is valid
+     * 
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function checkValidVatNumber(string $value):string
+    {
+        $result = '';
+        
+        if (!preg_match('/^[Bb][Ee][0|1]\d{9}$/', $value)) {
+            $result = 'Dit veld heeft een foutief formaat (BE9999999999).';
+        }
+        
+        return $result;
+    }
+        
 }
