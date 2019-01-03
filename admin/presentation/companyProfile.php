@@ -156,7 +156,7 @@
                                         
                                         {% endif %}
                                         
-                                        <a href="socialMediaLinkCreate.php" class="btn btn-action btn-primary">Een nieuwe social media link toevoegen</i></a>
+                                        <a href="socialMediaLinkCreate.php" class="btn btn-action btn-primary mt-2">Een nieuwe social media link toevoegen</i></a>
                                     </div>
                                 </div>
                             </div>
