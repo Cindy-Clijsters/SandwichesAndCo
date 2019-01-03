@@ -107,6 +107,22 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Sociale media</h4>
+                                    </div>
+                                    <div class="card-body">                                            
+                                        <a href="socialMediaLinkCreate.php" class="btn btn-action btn-primary">Een nieuwe social media link toevoegen</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </section>
                 
             </div>
