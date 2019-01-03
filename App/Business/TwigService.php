@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Business;
 
-use App\Twig\AdministratorTwigExtension;
+use App\Twig\{AdministratorTwigExtension, SocialMediaLinkExtension};
 
 use Twig_Loader_Filesystem;
 use Twig_Environment;
@@ -25,6 +25,7 @@ class TwigService
         $twig       = new Twig_Environment($twigLoader);
         
         $twig->addExtension(new AdministratorTwigExtension());
+        $twig->addExtension(new SocialMediaLinkExtension());
 
         return $twig->render($file, $params);
     }
