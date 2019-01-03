@@ -10,6 +10,44 @@ use PDO;
 class SocialMediaLinkDAO
 {
     /**
+     * Get an array with all social media links
+     * 
+     * @return array
+     */
+    public function getAll():array
+    {
+        $result = [];
+        
+        // Generate the query
+        $sql = "SELECT id, identifier, url, status
+                FROM social_media_links
+                ORDER BY identifier";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $resultSet = $pdo->query($sql);
+        
+        // Add the results to the array
+        foreach ($resultSet as $row) {
+            
+            $socialMediaLink = $this->createFromDbRow($row);
+            
+            if ($socialMediaLink !== null) {
+                array_push($result, $socialMediaLink);
+            }
+            
+        }
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the result
+        return $result;
+    }
+    
+    /**
      * Get the information of a social media link specified by it's identifier
      * 
      * @param string $identifier
@@ -44,6 +82,13 @@ class SocialMediaLinkDAO
         return $socialMediaLink;       
     }
     
+    /**
+     * Insert a new social media link
+     * 
+     * @param SocialMediaLink $socialMediaLink
+     * 
+     * @return SocialMediaLink
+     */
     public function insert(SocialMediaLink $socialMediaLink):SocialMediaLink
     {
         // Generate the query

@@ -9,6 +9,19 @@ use App\Entities\SocialMediaLink;
 class SocialMediaLinkService
 {
     /**
+     * Get an array with all social media links
+     * 
+     * @return array
+     */
+    public function getAll():array 
+    {
+        $socialMediaLinkDAO = new SocialMediaLinkDAO();
+        $socialMediaLinks   = $socialMediaLinkDAO->getAll();
+        
+        return $socialMediaLinks;
+    }
+    
+    /**
      * Get the information of a social media link specified by its identifier
      * 
      * @param string $identifier

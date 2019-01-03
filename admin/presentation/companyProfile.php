@@ -115,7 +115,47 @@
                                     <div class="card-header">
                                         <h4>Sociale media</h4>
                                     </div>
-                                    <div class="card-body">                                            
+                                    <div class="card-body">  
+                                        {% if socialMediaLinks is empty %}  
+                                        
+                                            <p>Er zijn nog geen sociale media links toegevoegd aan je bedrijf.</p>
+                                            
+                                        {% else %}
+                                        
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="2">Sociale media</th>
+                                                            <th>Url</th>
+                                                            <th>Status</th>
+                                                            <th>Opties</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for socialMediaLink in socialMediaLinks %}
+                                                            <tr>
+                                                                <td style="width: 1rem;"><i class="ion ion-social-{{ socialMediaLink.identifier }}"></i></td>
+                                                                <td>{{ translateSocialMediaLinkIdentifier(socialMediaLink.identifier) }}</td>
+                                                                <td><a href="{{ socialMediaLink.url }}" target="_blank">{{ socialMediaLink.url }}</a></td>
+                                                                <td>
+                                                                    <div class="badge {% if socialMediaLink.status == 'active' %} badge-success {% else %} badge-danger {% endif %} ">
+                                                                        {{ translateSocialMediaLinkStatus(socialMediaLink.status) }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="socialMediaLinkUpdate.php?id={{ socialMediaLink.id }}" class="btn btn-action btn-secondary">Wijzigen</i></a>
+                                                                    <a href="socialMediaLinkDelete.php?id={{ socialMediaLink.id }}" class="btn btn-action btn-secondary">Verwijderen</i></a>
+                                                                </td>    
+                                                            </tr>                                                        
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        
+                                        {% endif %}
+                                        
                                         <a href="socialMediaLinkCreate.php" class="btn btn-action btn-primary">Een nieuwe social media link toevoegen</i></a>
                                     </div>
                                 </div>
