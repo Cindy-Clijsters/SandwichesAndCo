@@ -128,6 +128,7 @@ echo $twigSvc->generateView(
     $root . '/admin/presentation',
     'companyProfileEdit.php',
     [
+        'menuItem'       => 'companyProfile',
         'companyName'    => $_SESSION['companyName'],
         'administrator'  => $administrator,
         'tmpCompany'     => $tmpCompany,
