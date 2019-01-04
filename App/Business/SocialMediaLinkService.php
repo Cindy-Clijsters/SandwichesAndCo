@@ -82,6 +82,19 @@ class SocialMediaLinkService
     }
     
     /**
+     * Delete an existing social media link
+     * 
+     * @param int $socialMediaLinkId
+     * 
+     * @return void
+     */
+    public function delete(int $socialMediaLinkId):void
+    {
+        $socialMediaLinkDAO = new SocialMediaLinkDAO();
+        $socialMediaLinkDAO->delete($socialMediaLinkId);
+    }
+    
+    /**
      * Validate the social media link
      * 
      * @param stdClass $tmpLink

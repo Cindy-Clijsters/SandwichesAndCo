@@ -186,6 +186,33 @@ class SocialMediaLinkDAO
     }
     
     /**
+     * Delete an existing social media link
+     * 
+     * @param int $id
+     * 
+     * @return void
+     */
+    public function delete(int $id):void
+    {
+        // Generate the query
+        $sql = "DELETE 
+                FROM social_media_links
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        
+        // Close the connection
+        $pdo = null;
+    }
+    
+    /**
      * Create a social media link from a database row
      * 
      * @param array $row
