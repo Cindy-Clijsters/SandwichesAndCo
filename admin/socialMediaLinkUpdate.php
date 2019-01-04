@@ -27,7 +27,7 @@ $socialMediaLinkSvc = new SocialMediaLinkService();
 $socialMediaLink    = $socialMediaLinkSvc->getById($socialMediaLinkId);
 
 if ($socialMediaLink === null) {
-    header("companyProfile.php");
+    header("location:companyProfile.php");
     exit(0);
 }
 
