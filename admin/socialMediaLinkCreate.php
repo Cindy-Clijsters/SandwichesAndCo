@@ -4,7 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, SocialMediaLinkService, TwigService, ValidationService};
+use App\Business\{AdministratorService, SocialMediaLinkService, TwigService};
 use App\Entities\SocialMediaLink;
 
 // Check if the administrator is logged in correctly
@@ -17,6 +17,7 @@ if ($administrator === null) {
 
 // Get the posted values
 $tmpLink              = new stdClass();
+$tmpLink->id          = null;
 $tmpLink->identifier  = filter_input(INPUT_POST, 'identifier') ?? '';
 $tmpLink->url         = filter_input(INPUT_POST, 'url') ?? '';
 $tmpLink->status      = filter_input(INPUT_POST, 'status') ?? '';
@@ -29,36 +30,8 @@ $successMessage = "";
 
 if ($_POST) {
     
-    $validationSvc = new ValidationService();
-    
-    $identifierErrors = $validationSvc->validateTextField($tmpLink->identifier, 50);
-    
-    if ($identifierErrors === '') {
-        $identifierErrors = $validationSvc->checkUniqueSocialMediaLinkIdentifier($tmpLink->identifier);
-    }
-    
-    if ($identifierErrors !== '') {
-        $errors->identifier = $identifierErrors;
-        $errors->isValid    = false;
-    }
-    
-    $urlErrors = $validationSvc->validateTextField($tmpLink->url, 255);
-    
-    if ($urlErrors === '') {
-        $urlErrors = $validationSvc->checkUrl($tmpLink->url);
-    }
-    
-    if ($urlErrors !== '') {
-        $errors->url     = $urlErrors;
-        $errors->isValid = false;
-    }
-    
-    $statusErrors = $validationSvc->validateTextField($tmpLink->status, 20);
-    
-    if ($statusErrors !== '') {
-        $errors->status  = $statusErrors;
-        $errors->isValid = false;
-    }
+    $socialMediaLinkSvc = new SocialMediaLinkService();
+    $errors             = $socialMediaLinkSvc->validateSocialMediaLink($tmpLink);
     
     if ($errors->isValid === true) {
         
@@ -69,11 +42,11 @@ if ($_POST) {
         );
         
         // Save the social media link
-        $socialMediaLinkSvc = new SocialMediaLinkService();
         $socialMediaLinkSvc->insert($socialMediaLink);
         
         // Set the success message
-        $successMessage = "De sociale media link is met success toegevoegd.";        
+        $successMessage = "De sociale media link is met succes toegevoegd.";    
+        
     }
 }
 

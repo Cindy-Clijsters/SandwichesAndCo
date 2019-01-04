@@ -48,6 +48,41 @@ class SocialMediaLinkDAO
     }
     
     /**
+     * Get the information of a social media link specified by it's id
+     * 
+     * @param int $id
+     * 
+     * @return SocialMediaLink|null
+     */
+    public function getById(int $id):?SocialMediaLink
+    {
+        $socialMediaLink = null;
+        
+        // Generate the query
+        $sql = "SELECT id, identifier, url, status
+                FROM social_media_links 
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        // Get the information of the social media link
+        if ($stmt->rowCount() > 0) {
+            $row             = $stmt->fetch(PDO::FETCH_ASSOC);
+            $socialMediaLink = $this->createFromDbRow($row);
+        }
+        
+        // Close the db connection
+        $pdo = null;
+        
+        return $socialMediaLink;          
+    }
+    
+    /**
      * Get the information of a social media link specified by it's identifier
      * 
      * @param string $identifier
@@ -64,7 +99,7 @@ class SocialMediaLinkDAO
                 WHERE identifier = :identifier";
 
         // Open the connection
-        $pdo = DbConfig::getPDO();
+        $pdo = DbConfig::getPdo();
         
         // Execute the query
         $stmt = $pdo->prepare($sql);
@@ -116,6 +151,38 @@ class SocialMediaLinkDAO
         // Return the social media link
         return $socialMediaLink;
                 
+    }
+   
+    /**
+     * Update the information of the social media link
+     * 
+     * @param SocialMediaLink $socialMediaLink
+     * 
+     * @return void
+     */
+    public function update(SocialMediaLink $socialMediaLink):void
+    {
+        // Generate the query
+        $sql = "UPDATE social_media_links
+                SET identifier = :identifier,
+                    url = :url,
+                    status = :status
+                WHERE id = :id";
+           
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':identifier' => $socialMediaLink->getIdentifier(),
+            ':url'        => $socialMediaLink->getUrl(),
+            ':status'     => $socialMediaLink->getStatus(),
+            ':id'         => $socialMediaLink->getId()
+        ]);
+        
+        // Close the connection
+        $pdo = null;
     }
     
     /**

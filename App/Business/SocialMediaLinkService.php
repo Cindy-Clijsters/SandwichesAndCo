@@ -6,6 +6,8 @@ namespace App\Business;
 use App\Data\SocialMediaLinkDAO;
 use App\Entities\SocialMediaLink;
 
+use stdClass;
+
 class SocialMediaLinkService
 {
     /**
@@ -19,6 +21,21 @@ class SocialMediaLinkService
         $socialMediaLinks   = $socialMediaLinkDAO->getAll();
         
         return $socialMediaLinks;
+    }
+    
+    /**
+     * Get the information of a social media link specified by its id
+     * 
+     * @param int $id
+     * 
+     * @return SocialMediaLink|null
+     */
+    public function getById(int $id):?SocialMediaLink
+    {
+        $socialMediaLinkDAO = new SocialMediaLinkDAO();
+        $socialMediaLink    = $socialMediaLinkDAO->getById($id);
+        
+        return $socialMediaLink;
     }
     
     /**
@@ -49,5 +66,67 @@ class SocialMediaLinkService
         $newSocialMediaLink = $socialMediaLinkDAO->insert($socialMediaLink);
         
         return $newSocialMediaLink;
+    }
+    
+    /**
+     * Update an existing social media link
+     * 
+     * @param SocialMediaLink $socialMediaLink
+     * 
+     * @return void
+     */
+    public function update(SocialMediaLink $socialMediaLink):void
+    {
+        $socialMediaLinkDAO = new SocialMediaLinkDAO();
+        $socialMediaLinkDAO->update($socialMediaLink);
+    }
+    
+    /**
+     * Validate the social media link
+     * 
+     * @param stdClass $tmpLink
+     * 
+     * @return stdClass
+     */
+    public function validateSocialMediaLink(stdClass $tmpLink):stdClass
+    {
+        $validationSvc = new ValidationService();
+        
+        $errors          = new stdClass();
+        $errors->isValid = true;
+    
+        $identifierErrors = $validationSvc->validateTextField($tmpLink->identifier, 50);
+
+        if ($identifierErrors === '') {
+            $identifierErrors = $validationSvc->checkUniqueSocialMediaLinkIdentifier(
+                $tmpLink->identifier,
+                $tmpLink->id
+            );
+        }
+
+        if ($identifierErrors !== '') {
+            $errors->identifier = $identifierErrors;
+            $errors->isValid    = false;
+        }
+
+        $urlErrors = $validationSvc->validateTextField($tmpLink->url, 255);
+
+        if ($urlErrors === '') {
+            $urlErrors = $validationSvc->checkUrl($tmpLink->url);
+        }
+
+        if ($urlErrors !== '') {
+            $errors->url     = $urlErrors;
+            $errors->isValid = false;
+        }
+
+        $statusErrors = $validationSvc->validateTextField($tmpLink->status, 20);
+
+        if ($statusErrors !== '') {
+            $errors->status  = $statusErrors;
+            $errors->isValid = false;
+        }
+        
+        return $errors;
     }
 }
