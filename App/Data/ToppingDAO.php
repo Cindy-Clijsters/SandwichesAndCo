@@ -9,6 +9,11 @@ use PDO;
 
 class ToppingDAO
 {
+    /**
+     * Get an array with all the toppings
+     * 
+     * @return array
+     */
     public function getAll():array
     {
         $result = [];
@@ -40,6 +45,75 @@ class ToppingDAO
         
         // Return the result
         return $result;
+    }
+    
+    /**
+     * Get the information of a topping specified by it's name
+     * 
+     * @param string $name
+     * 
+     * @return Topping|null
+     */
+    public function getByName(string $name):?Topping
+    {
+        $topping = null;
+        
+        // Generate the query
+        $sql = "SELECT id, name, status 
+                FROM toppings 
+                WHERE name = :name";
+        
+        // Open the connection 
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $name]);
+        
+        // Get the information of the topping
+        if ($stmt->rowCount() > 0) {
+            $row     = $stmt->fetch(PDO::FETCH_ASSOC);
+            $topping = $this->createFromDbRow($row);
+        }
+        
+        // Close the db connection
+        $pdo = null;
+        
+        return $topping;
+    }
+    
+    /**
+     * Insert a new topping
+     * 
+     * @param Topping $topping
+     * 
+     * @return Topping
+     */
+    public function insert(Topping $topping):Topping
+    {
+        // Generate the query
+        $sql = "INSERT INTO toppings(name, status) 
+                VALUES (:name, :status)";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':name'   => $topping->getName(),
+            ':status' => $topping->getStatus()
+        ]);
+        
+        // Update the if of the topping
+        $toppingId = $pdo->lastInsertId();
+        $topping->setId(intVal($toppingId));
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the topping
+        return $topping;
     }
     
     /**

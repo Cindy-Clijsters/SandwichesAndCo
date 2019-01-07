@@ -70,7 +70,7 @@
                                         
                                         {% endif %}
                                         
-                                        <a href="toppingCreate.php" class="btn btn-action btn-primary mt-2">Een nieuwe topping toevoegen</i></a>
+                                        <a href="toppingCreate.php" class="btn btn-action btn-primary mt-2" tabindex="1">Een nieuwe topping toevoegen</i></a>
                                     </div>
                                 </div>                                    
                             </div>

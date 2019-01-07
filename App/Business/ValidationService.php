@@ -359,5 +359,35 @@ class ValidationService
         
         return $result;
     }
+    
+    /**
+     * Check if the name of the topping is unique
+     * 
+     * @param string $toppingName
+     * @param int|null $toppingId
+     * 
+     * @return string
+     */
+    public function checkUniqueToppingName(
+        string $toppingName,
+        ?int $toppingId = null
+    ) {
+        $result = '';
+        
+        $toppingSvc = new ToppingService();
+        $topping    = $toppingSvc->getByName($toppingName);
+        
+        if ($topping !== null) {
+            if ($toppingId !== null) {
+                if ($topping->getId() !== $toppingId) {
+                    $result = 'Dit veld moet een unieke naam bevatten.';
+                }
+            } else {
+                $result = 'Dit veld moet een unieke naam bevatten.';
+            }
+        }
+        
+        return $result;
+    }
         
 }
