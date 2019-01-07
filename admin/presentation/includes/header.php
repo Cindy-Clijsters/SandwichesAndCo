@@ -17,8 +17,11 @@
                     <i class="ion ion-android-person"></i> Mijn profiel
                 </a>
                 <a href="companyProfile.php" class="dropdown-item has-icon">
-                    <i class="ion ion-android-person"></i> Bedrijfsprofiel
+                    <i class="ion ion ion-home"></i> Bedrijfsprofiel
                 </a>                
+                <a href="toppings.php" class="dropdown-item has-icon">
+                    <i class="ion ion ion-ios-nutrition"></i> Toppings
+                </a>
                 <a href="logout.php" class="dropdown-item has-icon">
                     <i class="ion ion-log-out"></i> Afmelden
                 </a>

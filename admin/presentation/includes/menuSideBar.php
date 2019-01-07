@@ -25,7 +25,12 @@
                 <a href="profile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
             </li>
             <li {% if menuItem is defined and menuItem == "companyProfile" %} class="active" {% endif %}>
-                <a href="companyProfile.php"><i class="ion ion-android-person"></i><span>Bedrijfsprofiel</span></a>
+                <a href="companyProfile.php"><i class="ion ion-home"></i><span>Bedrijfsprofiel</span></a>
+            </li>  
+            
+            <li class="menu-header">Producten</li>
+            <li {% if menuItem is defined and menuItem == "topping" %} class="active" {% endif %}>
+                <a href="topping.php"><i class="ion ion-ios-nutrition"></i><span>Toppings</span></a>
             </li>            
             
         </ul>
