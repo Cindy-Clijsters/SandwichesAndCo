@@ -81,7 +81,19 @@ class ToppingService
         $toppingDAO->update($topping);
     }
     
-    
+    /**
+     * Delete a topping by its id
+     * 
+     * @param int $id
+     * 
+     * @return void
+     */
+    public function delete(int $id):void
+    {
+        $toppingDAO = new ToppingDAO();
+        $toppingDAO->delete($id);
+    }
+     
     /**
      * Validate the topping
      * 

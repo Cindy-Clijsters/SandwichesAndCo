@@ -182,6 +182,33 @@ class ToppingDAO
     }
     
     /**
+     * Delete an existing topping
+     * 
+     * @param int $id
+     * 
+     * @return void
+     */
+    public function delete(int $id):void
+    {
+        // Generate the query
+        $sql = "DELETE 
+                FROM toppings
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        
+        // Close the connection
+        $pdo = null;
+    }
+    
+    /**
      * Create a topping from a database row
      * 
      * @param array $row
