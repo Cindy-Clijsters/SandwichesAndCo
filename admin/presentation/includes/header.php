@@ -18,7 +18,10 @@
                 </a>
                 <a href="companyProfile.php" class="dropdown-item has-icon">
                     <i class="ion ion ion-home"></i> Bedrijfsprofiel
-                </a>                
+                </a>    
+                <a href="productCategory.php" class="dropdown-item has-icon">
+                    <i class="ion ion ion-pricetag"></i> Categorieën
+                </a>
                 <a href="toppings.php" class="dropdown-item has-icon">
                     <i class="ion ion ion-ios-nutrition"></i> Toppings
                 </a>
