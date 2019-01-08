@@ -46,6 +46,75 @@ class ProductCategoryDAO
     }
     
     /**
+     * Get the information of the product category
+     * 
+     * @param string $name
+     * 
+     * @return ProductCategory|null
+     */
+    public function getByName(string $name):?ProductCategory 
+    {
+        $productCategory = null;
+        
+        // Generate the query
+        $sql = "SELECT id, name, status
+                FROM product_categories 
+                WHERE name = :name";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $name]);
+        
+        // Get the information of the product category
+        if ($stmt->rowCount() > 0) {
+            $row             = $stmt->fetch(PDO::FETCH_ASSOC);
+            $productCategory = $this->createFromDbRow($row);
+        }
+        
+        // Close the db connection
+        $pdo = null;
+        
+        return $productCategory;
+    }
+    
+    /**
+     * Insert a new product category
+     * 
+     * @param ProductCategory $productCategory
+     * 
+     * @return ProductCategory
+     */
+    public function insert(ProductCategory $productCategory):ProductCategory 
+    {
+        // Generate the query
+        $sql = "INSERT INTO product_categories(name, status)
+                VALUES (:name, :status)";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':name'   => $productCategory->getName(),
+            ':status' => $productCategory->getStatus()
+        ]);
+        
+        // Update the id of the product category
+        $productCategoryId = $pdo->lastInsertId();
+        $productCategory->setId(intVal($productCategoryId));
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the product category
+        return $productCategory;
+    }
+    
+    /**
      * Create a product category from a database row
      * 
      * @param array $row

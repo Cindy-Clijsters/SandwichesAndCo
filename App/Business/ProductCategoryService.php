@@ -4,6 +4,9 @@ declare(strict_types = 1);
 namespace App\Business;
 
 use App\Data\ProductCategoryDAO;
+use App\Entities\ProductCategory;
+
+use stdClass;
 
 class ProductCategoryService
 {
@@ -18,5 +21,81 @@ class ProductCategoryService
         $productCategories  = $productCategoryDAO->getAll();
         
         return $productCategories;
+    }
+    
+    /**
+     * Get a product category by it's name
+     * 
+     * @param string $name
+     * 
+     * @return ProductCategory|null
+     */
+    public function getByName(string $name):?ProductCategory
+    {
+        $productCategoryDAO = new ProductCategoryDAO();
+        $productCategory    = $productCategoryDAO->getByName($name);
+        
+        return $productCategory;
+    }
+    
+    /**
+     * Insert a new product category
+     * 
+     * @param ProductCategory $productCategory
+     * 
+     * @return ProductCategory
+     */
+    public function insert(ProductCategory $productCategory):ProductCategory
+    {
+        $productCategoryDAO = new ProductCategoryDAO();
+        $newProductCategory = $productCategoryDAO->insert($productCategory);
+        
+        return $newProductCategory;
+    }
+    
+    /**
+     * Validate the product category
+     * 
+     * @param stdClass $tmpProductCategory
+     * 
+     * @return stdClass
+     */
+    public function validateProductCategory(stdClass $tmpProductCategory):stdClass 
+    {
+        $validationSvc = new ValidationService();
+        
+        $errors          = new stdClass();
+        $errors->isValid = true;
+        
+        $nameErrors = $validationSvc->validateTextField($tmpProductCategory->name, 100);
+        
+        if ($nameErrors === '') {
+            $nameErrors = $validationSvc->checkUniqueProductCategoryName(
+                $tmpProductCategory->name,
+                $tmpProductCategory->id
+            );
+        }
+        
+        if ($nameErrors !== '') {
+            $errors->name    = $nameErrors;
+            $errors->isValid = false;
+        }
+        
+        $statusErrors = $validationSvc->validateTextField($tmpProductCategory->status, 20);
+        
+        if ($statusErrors === '') {
+            $statusErrors = $validationSvc->checkInArray(
+                $tmpProductCategory->status,
+                ProductCategory::STATUSES,
+                'status'   
+            );
+        }
+        
+        if ($statusErrors !== '') {
+            $errors->status  = $statusErrors;
+            $errors->isValid = false;
+        }
+        
+        return $errors;
     }
 }

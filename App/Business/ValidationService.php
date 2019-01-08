@@ -409,5 +409,35 @@ class ValidationService
         
         return $result;
     }
+    
+    /**
+     * Check if the name of the product category is unique
+     * 
+     * @param string $name
+     * @param int|null $id
+     * 
+     * @return string
+     */
+    public function checkUniqueProductCategoryName(
+        string $name,
+        ?int $id = null
+    ) {
+        $result = '';
+        
+        $productCategorySvc = new ProductCategoryService();
+        $productCategory    = $productCategorySvc->getByName($name);
+        
+        if ($productCategory !== null) {
+            if ($id !== null) {
+                if ($productCategory->getId() !== $id) {
+                    $result = 'Dit veld moet een unieke naam bevatten.';
+                }
+            } else {
+                $result = 'Dit veld moet een unieke naam bevatten.';
+            }
+        }
+        
+        return $result;
+    }
         
 }
