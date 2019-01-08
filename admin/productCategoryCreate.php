@@ -55,7 +55,7 @@ echo $twigSvc->generateView(
     $root . '/admin/presentation',
     'productCategoryCrud.php',
     [
-        'menuItem'                => 'topping',
+        'menuItem'                => 'productCategory',
         'companyName'             => $_SESSION['companyName'],
         'administrator'           => $administrator,
         'title'                   => 'Een categorie toevoegen',

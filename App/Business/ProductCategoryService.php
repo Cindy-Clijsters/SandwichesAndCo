@@ -39,6 +39,21 @@ class ProductCategoryService
     }
     
     /**
+     * Get a product category by it's id
+     * 
+     * @param int $id
+     * 
+     * @return ProductCategory|null
+     */
+    public function getById(int $id):?ProductCategory 
+    {
+        $productCategoryDAO = new ProductCategoryDAO();
+        $productCategory    = $productCategoryDAO->getById($id);
+        
+        return $productCategory;
+    }
+    
+    /**
      * Insert a new product category
      * 
      * @param ProductCategory $productCategory
@@ -51,6 +66,19 @@ class ProductCategoryService
         $newProductCategory = $productCategoryDAO->insert($productCategory);
         
         return $newProductCategory;
+    }
+    
+    /**
+     * Update an existing product category
+     * 
+     * @param ProductCategory $productCategory
+     * 
+     * @return void
+     */
+    public function update(ProductCategory $productCategory):void 
+    {
+        $productCategoryDAO = new ProductCategoryDAO();
+        $productCategoryDAO->update($productCategory);
     }
     
     /**

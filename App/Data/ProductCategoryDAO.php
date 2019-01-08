@@ -46,6 +46,41 @@ class ProductCategoryDAO
     }
     
     /**
+     * Get a product category by it's id
+     * 
+     * @param int $id
+     * 
+     * @return ProductCategory|null
+     */
+    public function getById(int $id):?ProductCategory 
+    {
+        $productCategory = null;
+        
+        // Generate the query
+        $sql = "SELECT id, name, status
+                FROM product_categories
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        // Get the information of the product category
+        if ($stmt->rowCount() > 0) {
+            $row             = $stmt->fetch(PDO::FETCH_ASSOC);
+            $productCategory = $this->createFromDbRow($row);
+        }
+        
+        // Close the db connection
+        $pdo = null;
+        
+        return $productCategory;      
+    }
+    
+    /**
      * Get the information of the product category
      * 
      * @param string $name
@@ -112,6 +147,39 @@ class ProductCategoryDAO
         
         // Return the product category
         return $productCategory;
+    }
+    
+    /**
+     * Update an existing product category 
+     * 
+     * @param ProductCategory $productCategory
+     * 
+     * @return ProductCategory
+     */
+    public function update(ProductCategory $productCategory):ProductCategory 
+    {
+        // Generate the query
+        $sql = "UPDATE product_categories
+                SET name = :name,
+                    status = :status
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':name'   => $productCategory->getName(),
+            ':status' => $productCategory->getStatus(),
+            ':id'     => $productCategory->getId()
+        ]);
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the product category
+        return $productCategory;       
     }
     
     /**
