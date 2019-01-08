@@ -48,6 +48,41 @@ class ToppingDAO
     }
     
     /**
+     * Get the information of a topping specified by it's id
+     * 
+     * @param int $id
+     * 
+     * @return Topping|null
+     */
+    public function getById(int $id):?Topping
+    {
+        $topping = null;
+        
+        // Generate the query
+        $sql = "SELECT id, name, status
+                FROM toppings 
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        if ($stmt->rowCount() > 0) {
+            $row     = $stmt->fetch(PDO::FETCH_ASSOC);
+            $topping = $this->createFromDbRow($row);
+        }
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the result
+        return $topping;  
+    }
+    
+    /**
      * Get the information of a topping specified by it's name
      * 
      * @param string $name
@@ -105,7 +140,7 @@ class ToppingDAO
             ':status' => $topping->getStatus()
         ]);
         
-        // Update the if of the topping
+        // Update the id of the topping
         $toppingId = $pdo->lastInsertId();
         $topping->setId(intVal($toppingId));
         
@@ -114,6 +149,36 @@ class ToppingDAO
         
         // Return the topping
         return $topping;
+    }
+    
+    /**
+     * Update an existing topping
+     * 
+     * @param Topping $topping
+     * 
+     * @return void
+     */
+    public function update(Topping $topping):void
+    {
+        // Generate the query
+        $sql = "UPDATE toppings 
+                SET name = :name,
+                    status = :status
+                WHERE id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':name'   => $topping->getName(),
+            ':status' => $topping->getStatus(),
+            ':id'     => $topping->getId()
+        ]);
+        
+        // Close the connection
+        $pdo = null;         
     }
     
     /**

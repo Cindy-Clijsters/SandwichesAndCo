@@ -81,5 +81,7 @@
             
         </div>
     </div>
+    
+    {{ include('includes/scripts.php') }}
 </body>
 </html>

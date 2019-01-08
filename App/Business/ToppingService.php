@@ -24,6 +24,21 @@ class ToppingService
     }
     
     /**
+     * Get a topping by it's id
+     * 
+     * @param int $id
+     * 
+     * @return Topping|null
+     */
+    public function getById(int $id):?Topping
+    {
+        $toppingDAO = new ToppingDAO();
+        $topping    = $toppingDAO->getById($id);
+        
+        return $topping;
+    } 
+    
+    /**
      * Get an topping by it's name
      * 
      * @param string $name
@@ -50,7 +65,20 @@ class ToppingService
         $toppingDAO = new ToppingDAO();
         $newTopping = $toppingDAO->insert($topping);
         
-        return $topping;
+        return $newTopping;
+    }
+    
+    /**
+     * Update an existing topping
+     * 
+     * @param Topping $topping
+     * 
+     * @return void
+     */
+    public function update(Topping $topping):void
+    {
+        $toppingDAO = new ToppingDAO();
+        $toppingDAO->update($topping);
     }
     
     
@@ -83,6 +111,14 @@ class ToppingService
         }
         
         $statusErrors = $validationSvc->validateTextField($tmpTopping->status, 20);
+        
+        if ($statusErrors === '') {
+            $statusErrors = $validationSvc->checkInArray(
+                $tmpTopping->status,
+                Topping::STATUSES,
+                'status'
+            );
+        }
         
         if ($statusErrors !== '') {
             $errors->status  = $statusErrors;

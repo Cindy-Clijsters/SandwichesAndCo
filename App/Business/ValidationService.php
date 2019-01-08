@@ -248,7 +248,27 @@ class ValidationService
         }
         
         return $result;
-    }    
+    }  
+    
+    /**
+     * Check if the value is in a specified array
+     * 
+     * @param string $value
+     * @param array $array
+     * @param string $name
+     * 
+     * @return string
+     */
+    public function checkInArray(string $value, array $array, string $name):string
+    {
+        $result = '';
+        
+        if (!in_array($value, $array)) {
+            $result = 'Dit veld bevat geen geldige ' . $name;
+        }
+        
+        return $result;
+    }
     
     /**
      * Check if the passwords agree
