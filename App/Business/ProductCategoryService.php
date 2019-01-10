@@ -82,6 +82,19 @@ class ProductCategoryService
     }
     
     /**
+     * Delete an existing product category 
+     * 
+     * @param int $id
+     * 
+     * @return void
+     */
+    public function delete(int $id):void
+    {
+        $productCategoryDAO = new ProductCategoryDAO();
+        $productCategoryDAO->delete($id);
+    }
+    
+    /**
      * Validate the product category
      * 
      * @param stdClass $tmpProductCategory

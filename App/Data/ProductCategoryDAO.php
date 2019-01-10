@@ -154,9 +154,9 @@ class ProductCategoryDAO
      * 
      * @param ProductCategory $productCategory
      * 
-     * @return ProductCategory
+     * @return void
      */
-    public function update(ProductCategory $productCategory):ProductCategory 
+    public function update(ProductCategory $productCategory):void 
     {
         // Generate the query
         $sql = "UPDATE product_categories
@@ -176,10 +176,32 @@ class ProductCategoryDAO
         ]);
         
         // Close the connection
-        $pdo = null;
+        $pdo = null;  
+    }
+    
+    /**
+     * Delete an existing product category
+     * 
+     * @param int $id
+     * 
+     * @return void
+     */
+    public function delete(int $id):void
+    {
+        // Generate the query
+        $sql = "DELETE 
+                FROM product_categories
+                WHERE id = :id";
         
-        // Return the product category
-        return $productCategory;       
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        // Close the connection 
+        $pdo = null;
     }
     
     /**
