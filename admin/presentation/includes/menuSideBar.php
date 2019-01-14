@@ -29,6 +29,10 @@
             </li>  
             
             <li class="menu-header">Producten</li>
+            <li {% if menuItem is defined and menuItem == "product" %} class="active" {% endif %}>
+                <a href="product.php"><i class="ion ion-cloud"></i><span>Producten</span></a>
+            </li>
+                
             <li {% if menuItem is defined and menuItem == "productCategory" %} class="active" {% endif %}>
                 <a href="productCategory.php"><i class="ion ion-pricetag"></i><span>Categorieën</span></a>
             </li>  

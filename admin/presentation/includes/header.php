@@ -19,6 +19,9 @@
                 <a href="companyProfile.php" class="dropdown-item has-icon">
                     <i class="ion ion ion-home"></i> Bedrijfsprofiel
                 </a>    
+                <a href="product.php" class="dropdown-item has-icon">
+                    <i class="ion ion ion-cloud"></i> Producten
+                </a>
                 <a href="productCategory.php" class="dropdown-item has-icon">
                     <i class="ion ion ion-pricetag"></i> Categorieën
                 </a>
