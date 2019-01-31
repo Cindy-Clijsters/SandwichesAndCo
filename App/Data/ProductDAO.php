@@ -55,9 +55,7 @@ class ProductDAO
      * @return Product|null
      */
     private function createFromDbRow(array $row):?Product 
-    {
-        //var_dump($row);
-        
+    {   
         $product = null;
         
         if (
@@ -74,18 +72,17 @@ class ProductDAO
             
             if (
                 array_key_exists('id', $row)
-                //&& array_key_exists('name', $row)
-                //&& array_key_exists('price', $row)
-                //&& array_key_exists('status', $row)
+                && array_key_exists('name', $row)
+                && array_key_exists('price', $row)
+                && array_key_exists('status', $row)
             ) {
-                $product = new Product(
+                $product = Product::map(
+                    intVal($row['id']),
                     $productCategory,
                     $row['name'],
                     $row['price'],
                     $row['status']
                 );
-                
-                $product->setId(intVal($row['id']));
             }
         }
         
