@@ -116,6 +116,13 @@
                                         <h4>Sociale media</h4>
                                     </div>
                                     <div class="card-body">  
+                                        
+                                        {% if socialMediaLinkMsg is not empty %}
+                                            <div class="alert alert-{{ socialMediaLinkMsgType }}">
+                                                {{ socialMediaLinkMsg }}
+                                            </div>
+                                        {% endif %}
+                                        
                                         {% if socialMediaLinks is empty %}  
                                         
                                             <p>Er zijn nog geen sociale media links toegevoegd aan je bedrijf.</p>
