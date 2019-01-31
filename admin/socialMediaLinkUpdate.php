@@ -4,7 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, SocialMediaLinkService, TwigService, ValidationService};
+use App\Business\{AdministratorService, SocialMediaLinkService, TwigService};
 use App\Entities\SocialMediaLink;
 
 // Check if the administrator is logged in correctly
