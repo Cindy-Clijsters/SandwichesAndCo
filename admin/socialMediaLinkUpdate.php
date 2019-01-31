@@ -75,8 +75,8 @@ echo $twigSvc->generateView(
         'administrator'              => $administrator,
         'title'                      => "Een sociale medialink wijzigen",
         'buttonText'                 => "Wijzigen",
-        'socialMediaLinkIdentifiers' => SocialMediaLink::IDENTIFIERS,
-        'socialMediaLinkStatuses'    => SocialMediaLink::STATUSES,
+        'socialMediaLinkIdentifiers' => SocialMediaLink::getAllIdentifiers(),
+        'socialMediaLinkStatuses'    => SocialMediaLink::getAllStatuses(),
         'tmpLink'                    => $tmpLink,
         'errors'                     => $errors,
         'successMessage'             => $successMessage

@@ -26,15 +26,6 @@ class SocialMediaLink
     const IDENTIFIER_LINKEDIN   = "linkedin";
     const IDENTIFIER_TWITTER    = "twitter";
     
-    const STATUSES    = [self::STATUS_ACTIVE, self::STATUS_INACTIVE];
-    const IDENTIFIERS = [
-        self::IDENTIFIER_FACEBOOK,
-        self::IDENTIFIER_GOOGLEPLUS,
-        self::IDENTIFIER_INSTAGRAM,
-        self::IDENTIFIER_LINKEDIN,
-        self::IDENTIFIER_TWITTER
-    ];
-    
     /**
      * Constructor function
      * 
@@ -134,6 +125,22 @@ class SocialMediaLink
     }
     
     /**
+     * Get an array with all identifiers
+     * 
+     * @return array
+     */
+    public static function getAllIdentifiers():array
+    {
+        return [
+            self::IDENTIFIER_FACEBOOK,
+            self::IDENTIFIER_GOOGLEPLUS,
+            self::IDENTIFIER_INSTAGRAM,
+            self::IDENTIFIER_LINKEDIN,
+            self::IDENTIFIER_TWITTER
+        ];
+    }
+    
+    /**
      * Set the url of the social media link
      * 
      * @param string $url
@@ -177,6 +184,19 @@ class SocialMediaLink
     public function getStatus():string
     {
         return $this->status;
+    }
+    
+    /**
+     * Get an array with all the statuses
+     * 
+     * @return array
+     */
+    public static function getAllStatuses():array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_INACTIVE
+        ];
     }
     
 }
