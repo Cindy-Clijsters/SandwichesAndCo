@@ -15,6 +15,8 @@ class SocialMediaLink
     private $url;
     private $status;
     
+    private static $idMap = [];
+    
     const STATUS_ACTIVE   = "active";
     const STATUS_INACTIVE = "inactive";
     
@@ -51,6 +53,39 @@ class SocialMediaLink
         $this->url        = $url;
         $this->status     = $status;
     } 
+    
+    /**
+     * Map a social media link
+     * 
+     * @param int $id
+     * @param string $identifier
+     * @param string $url
+     * @param string $status
+     * 
+     * @return SocialMediaLink
+     */
+    public static function map(
+        int $id,
+        string $identifier,
+        string $url,
+        string $status
+    ) {
+        if (!isset(self::$idMap[$id])) {
+            
+            $socialMediaLink = new SocialMediaLink(
+                $identifier,
+                $url,
+                $status
+            );
+            
+            $socialMediaLink->setId($id);
+            
+            self::$idMap[$id] = $socialMediaLink;
+            
+        } 
+            
+        return self::$idMap[$id];
+    }
     
     /**
      * Set the id of the social media link

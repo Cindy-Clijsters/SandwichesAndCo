@@ -224,20 +224,17 @@ class SocialMediaLinkDAO
         $socialMediaLink = null;
         
         if (
-            array_key_exists('identifier', $row)
+            array_key_exists('id', $row)
+            && array_key_exists('identifier', $row)
             && array_key_exists('url', $row) 
             && array_key_exists('status', $row)
         ) {
-            
-            $socialMediaLink = new SocialMediaLink(
+            $socialMediaLink = SocialMediaLink::Map(   
+                intVal($row['id']),
                 $row['identifier'],
                 $row['url'],
                 $row['status']
             );
-            
-            if (array_key_exists('id', $row)) {
-                $socialMediaLink->setId(intVal($row['id']));
-            }
         }
         
         return $socialMediaLink;
