@@ -60,7 +60,7 @@ echo $twigSvc->generateView(
         'administrator'   => $administrator,
         'title'           => "Een topping toevoegen",
         'buttonText'      => "Toevoegen",
-        'toppingStatuses' => Topping::STATUSES,
+        'toppingStatuses' => Topping::getAllStatuses(),
         'tmpTopping'      => $tmpTopping,
         'errors'          => $errors,
         'successMessage'  => $successMessage 

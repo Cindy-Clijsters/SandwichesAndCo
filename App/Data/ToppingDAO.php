@@ -220,17 +220,15 @@ class ToppingDAO
         $topping = null;
         
         if (
-            array_key_exists('name', $row)
+            array_key_exists('id', $row)
+            && array_key_exists('name', $row)
             && array_key_exists('status', $row)
         ) {
-            $topping = new Topping(
+            $topping = Topping::map(
+                intVal($row['id']),
                 $row['name'],
                 $row['status']
             );
-            
-            if (array_key_exists('id', $row)) {
-                $topping->setId(intVal($row['id']));
-            }
         }
         
         return $topping;

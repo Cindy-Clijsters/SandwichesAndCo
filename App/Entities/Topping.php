@@ -13,11 +13,11 @@ class Topping
     private $id;
     private $name;
     private $status;
+    
+    private static $idMap = [];
      
     const STATUS_ACTIVE   = "active";
     const STATUS_INACTIVE = "inactive";
-    
-    const STATUSES = [self::STATUS_ACTIVE, self::STATUS_INACTIVE];
     
     /**
      * Constructor function
@@ -33,6 +33,37 @@ class Topping
     ){
         $this->name   = $name;
         $this->status = $status;
+    }
+    
+    /**
+     * Map a topping
+     * 
+     * @param int $id
+     * @param string $name
+     * @param string $status
+     * 
+     * @return Topping
+     */
+    public static function map(
+        int $id,
+        string $name,
+        string $status
+    ): Topping {
+        
+        if (!isset(self::$idMap[$id])) {
+            
+            $topping = new Topping(
+                $name,
+                $status
+            );
+            
+            $topping->setId($id);
+            
+            self::$idMap[$id] = $topping;
+            
+        }
+        
+        return self::$idMap[$id];
     }
     
     /*
@@ -102,5 +133,18 @@ class Topping
     public function getStatus():string
     {
         return $this->status;
+    }
+    
+    /**
+     * Get an array with all statuses
+     * 
+     * @return array
+     */
+    public static function getAllStatuses():array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_INACTIVE
+        ];
     }
 }

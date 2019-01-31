@@ -127,7 +127,7 @@ class ToppingService
         if ($statusErrors === '') {
             $statusErrors = $validationSvc->checkInArray(
                 $tmpTopping->status,
-                Topping::STATUSES,
+                Topping::getAllStatuses(),
                 'status'
             );
         }

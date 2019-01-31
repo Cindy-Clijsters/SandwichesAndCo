@@ -60,7 +60,7 @@ class SocialMediaLink
         string $identifier,
         string $url,
         string $status
-    ) {
+    ):SocialMediaLink {
         if (!isset(self::$idMap[$id])) {
             
             $socialMediaLink = new SocialMediaLink(
