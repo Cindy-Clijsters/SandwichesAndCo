@@ -18,7 +18,7 @@ if ($administrator === null) {
 // Get the information to display the view
 $socialMediaLinkId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-if ($socialMediaLinkId === false) {
+if ($socialMediaLinkId === false || $socialMediaLinkId === null) {
     header("location:companyProfile.php");
     exit(0);
 }
