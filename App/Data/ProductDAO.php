@@ -63,12 +63,12 @@ class ProductDAO
             && array_key_exists('pc_name', $row) 
             && array_key_exists('pc_status', $row) 
         ) {
-            $productCategory = new ProductCategory(
+            
+            $productCategory = ProductCategory::map(
+                intVal($row['pc_id']),
                 $row['pc_name'],
                 $row['pc_status']
             );
-            
-            $productCategory->setId(intVal($row['pc_id']));
             
             if (
                 array_key_exists('id', $row)

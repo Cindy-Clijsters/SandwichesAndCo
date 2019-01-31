@@ -67,14 +67,14 @@ echo $twigSvc->generateView(
     $root . '/admin/presentation',
     'productCategoryCrud.php',
     [
-        'menuItem'           => 'productCategory',
-        'companyName'        => $_SESSION['companyName'],
-        'administrator'      => $administrator,
-        'title'              => "Een categorie wijzigen",
-        'buttonText'         => "Wijzigen",
-        'productCategoryStatuses' => ProductCategory::STATUSES,
-        'tmpProductCategory' => $tmpProductCategory,
-        'errors'             => $errors,
-        'successMessage'     => $successMessage
+        'menuItem'                => 'productCategory',
+        'companyName'             => $_SESSION['companyName'],
+        'administrator'           => $administrator,
+        'title'                   => "Een categorie wijzigen",
+        'buttonText'              => "Wijzigen",
+        'productCategoryStatuses' => ProductCategory::getAllStatuses(),
+        'tmpProductCategory'      => $tmpProductCategory,
+        'errors'                  => $errors,
+        'successMessage'          => $successMessage
     ]
 );

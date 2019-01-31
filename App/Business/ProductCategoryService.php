@@ -127,7 +127,7 @@ class ProductCategoryService
         if ($statusErrors === '') {
             $statusErrors = $validationSvc->checkInArray(
                 $tmpProductCategory->status,
-                ProductCategory::STATUSES,
+                ProductCategory::getAllStatuses(),
                 'status'   
             );
         }

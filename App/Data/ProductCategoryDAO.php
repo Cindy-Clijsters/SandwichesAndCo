@@ -216,17 +216,15 @@ class ProductCategoryDAO
         $productCategory = null;
         
         if (
-            array_key_exists('name', $row)
+            array_key_exists('id', $row)
+            && array_key_exists('name', $row)
             && array_key_exists('status', $row)
         ) {
-            $productCategory = new ProductCategory(
+            $productCategory = ProductCategory::map(
+                intVal($row['id']),
                 $row['name'],
                 $row['status']
             );
-            
-            if (array_key_exists('id', $row)) {
-                $productCategory->setId(intVal($row['id']));
-            }
         }
         
         return $productCategory;

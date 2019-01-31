@@ -60,7 +60,7 @@ echo $twigSvc->generateView(
         'administrator'           => $administrator,
         'title'                   => 'Een categorie toevoegen',
         'buttonText'              => 'Toevoegen',
-        'productCategoryStatuses' => ProductCategory::STATUSES,
+        'productCategoryStatuses' => ProductCategory::getAllStatuses(),
         'tmpProductCategory'      => $tmpProductCategory,
         'errors'                  => $errors,
         'successMessage'          => $successMessage

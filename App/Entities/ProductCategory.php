@@ -14,10 +14,10 @@ class ProductCategory
     private $name;
     private $status;
     
+    private static $idMap = [];
+    
     const STATUS_ACTIVE   = "active";
     const STATUS_INACTIVE = "inactive";
-    
-    const STATUSES = [self::STATUS_ACTIVE, self::STATUS_INACTIVE];
     
     /**
      * Constructor function
@@ -33,6 +33,36 @@ class ProductCategory
     ) {
         $this->name   = $name;
         $this->status = $status;
+    }
+    
+    /**
+     * Map a product category
+     * 
+     * @param int $id
+     * @param string $name
+     * @param string $status
+     * 
+     * @return ProductCategory
+     */
+    public static function map(
+        int $id,
+        string $name,
+        string $status
+    ) {
+        if (!isset(self::$idMap[$id])) {
+            
+            $productCategory = new ProductCategory(
+                $name,
+                $status
+            );
+            
+            $productCategory->setId($id);
+            
+            self::$idMap[$id] = $productCategory;
+            
+        }
+        
+        return self::$idMap[$id];
     }
     
     /**
@@ -102,5 +132,18 @@ class ProductCategory
     public function getStatus():string
     {
         return $this->status;
+    }
+    
+    /**
+     * Get an array with all statuses
+     * 
+     * @return array
+     */
+    public static function getAllStatuses():array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_INACTIVE
+        ];
     }
 }
