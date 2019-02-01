@@ -18,8 +18,6 @@ $socialMediaLinkId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $socialMediaLink   = null;
 
 if ($socialMediaLinkId !== false && $socialMediaLinkId !== null) {
-    
-    //var_dump('test');
     $socialMediaLinkSvc = new SocialMediaLinkService();
     $socialMediaLink    = $socialMediaLinkSvc->getById($socialMediaLinkId);
 }

@@ -26,8 +26,6 @@ $tmpLink->status      = filter_input(INPUT_POST, 'status') ?? '';
 $errors = new stdClass();
 $errors->isValid = true;
 
-$successMessage = "";
-
 if ($_POST) {
     
     $socialMediaLinkSvc = new SocialMediaLinkService();
@@ -72,7 +70,6 @@ echo $twigSvc->generateView(
         'socialMediaLinkIdentifiers' => SocialMediaLink::getAllIdentifiers(),
         'socialMediaLinkStatuses'    => SocialMediaLink::getAllStatuses(),
         'tmpLink'                    => $tmpLink,
-        'errors'                     => $errors,
-        'successMessage'             => $successMessage
+        'errors'                     => $errors
     ]
 );

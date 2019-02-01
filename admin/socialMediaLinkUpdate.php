@@ -39,8 +39,7 @@ $tmpLink->url        = filter_input(INPUT_POST, 'url') ?? $socialMediaLink->getU
 $tmpLink->status     = filter_input(INPUT_POST, 'status') ?? $socialMediaLink->getStatus();
 
 // Check if the form is posted
-$errors         = new stdClass();
-$successMessage = "";
+$errors = new stdClass();
 
 if ($_POST) {
     
@@ -87,7 +86,6 @@ echo $twigSvc->generateView(
         'socialMediaLinkIdentifiers' => SocialMediaLink::getAllIdentifiers(),
         'socialMediaLinkStatuses'    => SocialMediaLink::getAllStatuses(),
         'tmpLink'                    => $tmpLink,
-        'errors'                     => $errors,
-        'successMessage'             => $successMessage
+        'errors'                     => $errors
     ]
 );

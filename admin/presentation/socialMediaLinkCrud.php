@@ -34,11 +34,7 @@
                                         <h4>{{ title }}</h4>
                                     </div>
                                     <div class="card-body">
-                                        
-                                        {% if successMessage is not empty %}
-                                            <div class="alert alert-success">{{ successMessage }}</div>
-                                        {% endif %}
-                                        
+                                       
                                         <form action="" method="post" novalidate>
                                             
                                             <div class="form-group">
