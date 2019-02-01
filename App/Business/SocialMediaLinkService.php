@@ -109,6 +109,14 @@ class SocialMediaLinkService
         $errors->isValid = true;
     
         $identifierErrors = $validationSvc->validateTextField($tmpLink->identifier, 50);
+        
+        if ($identifierErrors === '') {
+            $identifierErrors = $validationSvc->checkInArray(
+                $tmpLink->identifier,
+                SocialMediaLink::getAllIdentifiers(),
+                'sociale media'
+            );
+        }
 
         if ($identifierErrors === '') {
             $identifierErrors = $validationSvc->checkUniqueSocialMediaLinkIdentifier(
@@ -134,6 +142,14 @@ class SocialMediaLinkService
         }
 
         $statusErrors = $validationSvc->validateTextField($tmpLink->status, 20);
+        
+        if ($statusErrors === '') {
+            $statusErrors = $validationSvc->checkInArray(
+                $tmpLink->status,
+                SocialMediaLink::getAllStatuses(),
+                'status'
+            );
+        }
 
         if ($statusErrors !== '') {
             $errors->status  = $statusErrors;
