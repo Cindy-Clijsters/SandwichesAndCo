@@ -179,30 +179,26 @@ class AdministratorDAO
         $administrator = null;
         
         if (
-            array_key_exists('first_name', $row)
+            array_key_exists('id', $row)
+            && array_key_exists('first_name', $row)
             && array_key_exists('last_name', $row)
             && array_key_exists('email', $row) 
             && array_key_exists('password', $row)
             && array_key_exists('status', $row)
+            && array_key_exists('created_at', $row)
         ) {
             
-            $administrator = new Administrator(
+            $createdAt = new DateTime($row['created_at']);
+            
+            $administrator = Administrator::map(
+                intVal($row['id']),
                 $row['first_name'],
                 $row['last_name'],
                 $row['email'],
                 $row['password'],
-                $row['status']
-            );
-            
-            if (array_key_exists('id', $row)) {
-                $administrator->setId(intVal($row['id']));
-            }
-            
-            if (array_key_exists('created_at', $row)) {
-                $createdAt = new DateTime($row['created_at']);
-                $administrator->setCreatedAt($createdAt);
-            }
-                        
+                $row['status'], 
+                $createdAt
+            );                        
         }
         
         return $administrator;

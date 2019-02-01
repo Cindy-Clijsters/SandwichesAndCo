@@ -48,7 +48,7 @@ class ProductCategory
         int $id,
         string $name,
         string $status
-    ) {
+    ): ProductCategory {
         if (!isset(self::$idMap[$id])) {
             
             $productCategory = new ProductCategory(
