@@ -3,7 +3,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, SocialMediaLinkService};
+use App\Business\{AdministratorService, FlashService, SocialMediaLinkService};
 
 // Check if the administrator is logged in correctly
 $administratorSvc = new AdministratorService();
@@ -15,11 +15,39 @@ if ($administrator === null) {
 
 // Get the id of the social media link
 $socialMediaLinkId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$socialMediaLink   = null;
 
-if ($socialMediaLinkId !== false) {
+if ($socialMediaLinkId !== false && $socialMediaLinkId !== null) {
+    
+    //var_dump('test');
     $socialMediaLinkSvc = new SocialMediaLinkService();
-    $socialMediaLinkSvc->delete($socialMediaLinkId);
+    $socialMediaLink    = $socialMediaLinkSvc->getById($socialMediaLinkId);
 }
 
-header("location:companyProfile.php");
+if ($socialMediaLink !== null) {
+    
+    // Delete the link
+    $socialMediaLinkSvc->delete($socialMediaLinkId);
+    
+    // Set the delete message
+    $flashSvc = new FlashService();
+    $flashSvc->setFlashMessage(
+        'socialMediaLink',
+        'De sociale media link is met succes verwijderd.',
+        'warning'
+    );
+    
+} else {
+    
+    // Set the error message
+    $flashSvc = new FlashService();
+    $flashSvc->setFlashMessage(
+        'socialMediaLink',
+        'Er is een fout opgetreden! De sociale media link is niet verwijderd.',
+        'danger'
+    );
+    
+}
+
+header("location:companyProfile.php#social-media-links");
 exit(0);
