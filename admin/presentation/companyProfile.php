@@ -34,6 +34,12 @@
                                         <h4>Bedrijfsgegevens</h4>
                                     </div>
                                     <div class="card-body">
+                                        {% if companyProfileMsg is not empty %}
+                                            <div class="alert alert-{{ companyProfileMsgType }}">
+                                                {{ companyProfileMsg }}
+                                            </div>
+                                        {% endif %}
+                                        
                                         <div class="row">
                                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
                                                 Naam:

@@ -17,10 +17,12 @@ if ($administrator === null) {
 $companySvc = new CompanyService();
 $company    = $companySvc->getInfo();
 
+$flashSvc = new FlashService();
+list($companyProfileMsg, $companyProfileMsgType)   = $flashSvc->getFlashMessage("companyProfile");
+
 $socialMediaLinkSvc = new SocialMediaLinkService();
 $socialMediaLinks   = $socialMediaLinkSvc->getAll();
 
-$flashSvc = new FlashService();
 list($socialMediaLinkMsg, $socialMediaLinkMsgType) = $flashSvc->getFlashMessage("socialMediaLink");
 
 //Show the view
@@ -34,6 +36,8 @@ echo $twigSvc->generateView(
         "companyName"            => $_SESSION['companyName'],
         "administrator"          => $administrator,
         "company"                => $company,
+        "companyProfileMsg"      => $companyProfileMsg,
+        "companyProfileMsgType"  => $companyProfileMsgType,
         "socialMediaLinks"       => $socialMediaLinks,
         "socialMediaLinkMsg"     => $socialMediaLinkMsg,
         "socialMediaLinkMsgType" => $socialMediaLinkMsgType

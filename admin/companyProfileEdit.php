@@ -3,7 +3,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, CompanyService, TwigService, ValidationService};
+use App\Business\{AdministratorService, CompanyService, FlashService, TwigService, ValidationService};
 use App\Entities\Company;
 
 // Check if administrator is logged in correctly
@@ -31,8 +31,6 @@ $tmpCompany->vatNumber  = filter_input(INPUT_POST, 'vat-number') ?? $company->ge
 // Check if the form is posted
 $errors = new stdClass();
 $errors->isValid = true;
-
-$successMessage = "";
 
 if ($_POST) {
 
@@ -114,9 +112,19 @@ if ($_POST) {
         $companySvc->update($company);
         
         // Set the success message
-        $successMessage = "De bedrijfsgegevens zijn met succes gewijzigd.";
+        $flashSvc = new FlashService();
+        $flashSvc->setFlashMessage(
+            'companyProfile',
+            'De bedrijfsgegevens zijn met succes gewijzigd',
+            'success'
+        );
         
+        // Save the company name
         $_SESSION['companyName'] = $tmpCompany->name;
+        
+        // Redirect to the overview page
+        header("location:companyProfile.php");
+        exit(0);
         
     }
 }
@@ -132,7 +140,6 @@ echo $twigSvc->generateView(
         'companyName'    => $_SESSION['companyName'],
         'administrator'  => $administrator,
         'tmpCompany'     => $tmpCompany,
-        'errors'         => $errors,
-        'successMessage' => $successMessage
+        'errors'         => $errors
     ]
 );
