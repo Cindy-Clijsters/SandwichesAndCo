@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     
-                    <div class="section-body">
+                    <div class="section-body" id="social-media-links">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">

@@ -4,7 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, SocialMediaLinkService, TwigService};
+use App\Business\{AdministratorService, FlashService, SocialMediaLinkService, TwigService};
 use App\Entities\SocialMediaLink;
 
 // Check if the administrator is logged in correctly
@@ -57,7 +57,16 @@ if ($_POST) {
         $socialMediaLinkSvc->update($socialMediaLink);
         
         // Set the success message
-        $successMessage = "De link is met succes gewijzigd.";
+        $flashSvc = new FlashService();
+        $flashSvc->setFlashMessage(
+            'socialMediaLink',
+            'De sociale media link is met succes gewijzigd.',
+            'success'
+        );
+        
+        // Redirect to the overview
+        header("location:companyProfile.php#social-media-links");
+        exit(0);
         
     }
     

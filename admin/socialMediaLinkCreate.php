@@ -48,11 +48,11 @@ if ($_POST) {
         $flashSvc = new FlashService();
         $flashSvc->setFlashMessage(
             'socialMediaLink',
-            'De sociale media link is met succes toegevoegd',
+            'De sociale media link is met succes toegevoegd.',
             'success'
         );
 
-        header("location:companyProfile.php");
+        header("location:companyProfile.php#social-media-links");
         exit(0);
     }
 }
