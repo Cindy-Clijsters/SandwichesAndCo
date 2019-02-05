@@ -5,7 +5,7 @@ namespace App\Entities;
 
 use DateTime;
 
-class Administrator extends Person
+class Administrator extends Person implements AdministratorInterface
 {    
     private static $idMap = [];
     
