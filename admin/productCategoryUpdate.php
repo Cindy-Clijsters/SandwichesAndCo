@@ -4,7 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, ProductCategoryService, TwigService};
+use App\Business\{AdministratorService, FlashService, ProductCategoryService, TwigService};
 use App\Entities\ProductCategory;
 
 // Check if the administrator is logged in correctly
@@ -38,8 +38,7 @@ $tmpProductCategory->name   = filter_input(INPUT_POST, 'name') ?? $productCatego
 $tmpProductCategory->status = filter_input(INPUT_POST, 'status') ?? $productCategory->getStatus();
 
 // Check if the form is posted
-$errors         = new stdClass();
-$successMessage = "";
+$errors = new stdClass();
 
 if ($_POST) {
     
@@ -55,7 +54,16 @@ if ($_POST) {
         $productCategorySvc->update($productCategory);
         
         // Set the success message
-        $successMessage = "De categorie is met succes gewijzigd.";
+        $flashSvc = new FlashService();
+        $flashSvc->setFlashMessage(
+            'productCategory',
+            'De categorie is met succes gewijzigd.',
+            'success'
+        );
+
+        // Redirect to the overview
+        header("location:productCategory.php");
+        exit(0);
     }
     
 }
@@ -74,7 +82,6 @@ echo $twigSvc->generateView(
         'buttonText'              => "Wijzigen",
         'productCategoryStatuses' => ProductCategory::getAllStatuses(),
         'tmpProductCategory'      => $tmpProductCategory,
-        'errors'                  => $errors,
-        'successMessage'          => $successMessage
+        'errors'                  => $errors
     ]
 );

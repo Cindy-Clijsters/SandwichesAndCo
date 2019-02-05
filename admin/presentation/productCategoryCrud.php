@@ -35,9 +35,6 @@
                                     </div>
                                     
                                     <div class="card-body">
-                                        {% if successMessage is not empty %}
-                                            <div class="alert alert-success">{{ successMessage }}</div>
-                                        {% endif %}
                                         
                                         <form action="" method="post" novalidate>
                                             
