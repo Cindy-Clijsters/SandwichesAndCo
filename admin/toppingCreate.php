@@ -3,7 +3,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, ToppingService, TwigService};
+use App\Business\{AdministratorService, FlashService, ToppingService, TwigService};
 use App\Entities\Topping;
 
 // Check if the administrator is logged in correctly 
@@ -24,8 +24,6 @@ $tmpTopping->status = filter_input(INPUT_POST, 'status') ?? '';
 $errors = new stdClass();
 $errors->isValid = true;
 
-$successMessage = "";
-
 if ($_POST) {
     
     $toppingSvc = new ToppingService();
@@ -42,8 +40,16 @@ if ($_POST) {
         $toppingSvc->insert($topping);
         
         // Set the success message 
-        $successMessage = "De topping is met success toegevoegd.";
+        $flashSvc = new FlashService();
+        $flashSvc->setFlashMessage(
+            "topping",
+            "De topping is met success toegevoegd.",
+            "success"
+        );
         
+        // Redirect to the overview
+        header("location:topping.php");
+        exit(0); 
     }
     
 }
@@ -62,7 +68,6 @@ echo $twigSvc->generateView(
         'buttonText'      => "Toevoegen",
         'toppingStatuses' => Topping::getAllStatuses(),
         'tmpTopping'      => $tmpTopping,
-        'errors'          => $errors,
-        'successMessage'  => $successMessage 
+        'errors'          => $errors
     ]
 );

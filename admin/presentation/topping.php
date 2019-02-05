@@ -34,6 +34,12 @@
                                         <h4>Toppings</h4>
                                     </div>
                                     <div class="card-body">
+                                        {% if toppingMsg is not empty %}
+                                            <div class="alert alert-{{ toppingMsgType }}">
+                                                {{ toppingMsg }}
+                                            </div>
+                                        {% endif %}
+                                        
                                         {% if toppings is empty %}
                                         
                                             <p>Er zijn nog geen toppings toegevoegd.</p>
