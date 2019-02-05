@@ -3,7 +3,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, ProductCategoryService, TwigService};
+use App\Business\{AdministratorService, FlashService, ProductCategoryService, TwigService};
 use App\Entities\ProductCategory;
 
 // Check if the administrator is logged in correctly
@@ -24,8 +24,6 @@ $tmpProductCategory->status = filter_input(INPUT_POST, 'status') ?? '';
 $errors = new stdClass();
 $errors->isValid = true;
 
-$successMessage = "";
-
 if ($_POST) {
     
     $productCategorySvc = new ProductCategoryService();
@@ -42,8 +40,16 @@ if ($_POST) {
         $productCategorySvc->insert($productCategory);
         
         // Set the success message
-        $successMessage = "De categorie is met succes toegevoegd.";
+        $flashSvc = new FlashService();
         
+        $flashSvc->setFlashMessage(
+            "productCategory",
+            "De product categorie is met succes toegevoegd.",
+            "success"
+        );
+        
+        header("location:productCategory.php");
+        exit(0);
     }
     
 }
@@ -62,7 +68,6 @@ echo $twigSvc->generateView(
         'buttonText'              => 'Toevoegen',
         'productCategoryStatuses' => ProductCategory::getAllStatuses(),
         'tmpProductCategory'      => $tmpProductCategory,
-        'errors'                  => $errors,
-        'successMessage'          => $successMessage
+        'errors'                  => $errors
     ]
 );

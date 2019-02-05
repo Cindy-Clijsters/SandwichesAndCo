@@ -34,6 +34,13 @@
                                         <h4>Categorieën</h4>
                                     </div>
                                     <div class="card-body">
+                                        
+                                        {% if productCategoryMsg is not empty %}
+                                            <div class="alert alert-{{ productCategoryMsgType }}">
+                                                {{ productCategoryMsg }}
+                                            </div>
+                                        {% endif %}
+                                        
                                         {% if productCategories is empty %}
                                         
                                             <p>Er zijn nog geen categorieën toegevoegd.</p>
