@@ -80,4 +80,17 @@ class Administrator extends Person
         
     }
     
+    /**
+     * Return an array with all statuses
+     * 
+     * @return array
+     */
+    public static function getAllStatuses(): array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_INACTIVE
+        ];
+    }
+
 }

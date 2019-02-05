@@ -7,7 +7,8 @@ use DateTime;
 
 abstract class Person
 {
-    const STATUS_ACTIVE  = "active";
+    const STATUS_ACTIVE   = "active";
+    const STATUS_INACTIVE = "inactive";
     
     private $id;
     private $firstName;
