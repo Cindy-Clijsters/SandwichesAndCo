@@ -34,6 +34,12 @@
                                         <h4>Mijn gegevens</h4>
                                     </div>
                                     <div class="card-body">
+                                        {% if profileMsg is not empty %}
+                                            <div class="alert alert-{{ profileMsgType }}">
+                                                {{ profileMsg }}
+                                            </div>
+                                        {% endif %}
+                                        
                                         <div class="row">
                                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
                                                 Voornaam:

@@ -34,10 +34,6 @@
                                     </div>
                                     <div class="card-body">
                                         
-                                        {% if successMessage is not empty %}
-                                            <div class="alert alert-success">{{ successMessage }}</div>
-                                        {% endif %}
-                                        
                                         <form action="profileEdit.php" method="post" novalidate>
                                             
                                             <div class="form-group">

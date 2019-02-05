@@ -4,7 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, TwigService, ValidationService};
+use App\Business\{AdministratorService, FlashService, TwigService, ValidationService};
 
 // Check if the administrator is logged in correctly
 $administratorSvc = new AdministratorService();
@@ -22,8 +22,6 @@ $email     = filter_input(INPUT_POST, 'email') ?? $administrator->getEmail();
 // Check if the form is posted
 $errors = new stdClass();
 $errors->isValid = true;
-
-$successMessage = "";
 
 if ($_POST) {
     
@@ -68,8 +66,17 @@ if ($_POST) {
         // Save the information of the user in the database
         $administratorSvc->update($administrator);
         
-        $successMessage = "Je gegevens zijn met succes gewijzigd.";
+        // Set the success message
+        $flashSvc = new FlashService();
+        $flashSvc->setFlashMessage(
+            'profile',
+            'Je gegevens zijn met succes gewijzigd',
+            'success'
+        );
         
+        // Redirect to the overview
+        header("location:profile.php");
+        exit(0);
     }
     
 }
@@ -87,7 +94,6 @@ echo $twigSvc->generateView(
         "firstName"      => $firstName,
         "lastName"       => $lastName,
         "email"          => $email,
-        "errors"         => $errors,
-        "successMessage" => $successMessage
+        "errors"         => $errors
     ]
 );
