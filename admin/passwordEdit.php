@@ -3,7 +3,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, TwigService, ValidationService};
+use App\Business\{AdministratorService, FlashService, TwigService, ValidationService};
 
 // Check if the admnistrator is logged in correctly
 $administratorSvc = new AdministratorService();
@@ -16,8 +16,6 @@ if ($administrator === null) {
 // Check if the form is posted
 $errors          = new stdClass();
 $errors->isValid = true;
-
-$successMessage = "";
 
 if ($_POST) {
     
@@ -66,7 +64,18 @@ if ($_POST) {
             // Update the administrator
             $administratorSvc->update($administrator);
             
-            $successMessage = "Je wachtwoord is met success gewijzigd.";
+            // Set the success message
+            $flashSvc = new FlashService();
+            $flashSvc->setFlashMessage(
+                "profile",
+                "Je wachtwoord is met succes gewijzigd.",
+                "success"
+            );
+            
+            
+            // Redirect to the overview
+            header("location:profile.php");
+            exit(0);
         }
         
     }
@@ -83,7 +92,6 @@ echo $twigSvc->generateView(
         "menuItem"       => "profile",
         "companyName"    => $_SESSION['companyName'],
         "administrator"  => $administrator,
-        "errors"         => $errors,
-        "successMessage" => $successMessage
+        "errors"         => $errors
     ]
 );
