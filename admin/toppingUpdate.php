@@ -4,7 +4,7 @@ $root = dirname(__FILE__, 2);
 
 require_once($root . '/vendor/autoload.php');
 
-use App\Business\{AdministratorService, ToppingService, TwigService};
+use App\Business\{AdministratorService, FlashService, ToppingService, TwigService};
 use App\Entities\Topping;
 
 // Check if the administrator is logged in correctly
@@ -38,8 +38,7 @@ $tmpTopping->name   = filter_input(INPUT_POST, 'name') ?? $topping->getName();
 $tmpTopping->status = filter_input(INPUT_POST, 'status') ?? $topping->getStatus();
 
 // Check if the form is posted
-$errors         = new stdClass();
-$successMessage = "";
+$errors = new stdClass();
 
 if ($_POST) {
     
@@ -55,7 +54,17 @@ if ($_POST) {
         $toppingSvc->update($topping);
         
         // Set the success message
-        $successMessage = "De topping is met succes gewijzigd.";
+        $flashSvc = new FlashService();
+        $flashSvc->setFlashMessage(
+            "topping",
+            "De topping is met succes gewijzigd.",
+            "success"
+        );
+        
+        // Redirect to the overview
+        header("location:topping.php");
+        exit(0);
+
     }
     
 }
@@ -74,7 +83,6 @@ echo $twigSvc->generateView(
         'buttonText'      => "Wijzigen",
         'toppingStatuses' => Topping::getAllStatuses(),
         'tmpTopping'      => $tmpTopping,
-        'errors'          => $errors,
-        'successMessage'  => $successMessage
+        'errors'          => $errors
     ]
 );
