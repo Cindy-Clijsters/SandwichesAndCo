@@ -24,6 +24,21 @@ class ProductCategoryService
     }
     
     /**
+     * Get all product categories with a specified status
+     * 
+     * @param string $status
+     * 
+     * @return array
+     */
+    public function filterByStatus(string $status):array
+    {
+        $productCategoryDAO = new ProductCategoryDAO();
+        $productCategories  = $productCategoryDAO->filterByStatus($status);
+        
+        return $productCategories;
+    }
+    
+    /**
      * Get a product category by it's name
      * 
      * @param string $name

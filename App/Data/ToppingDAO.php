@@ -48,6 +48,80 @@ class ToppingDAO
     }
     
     /**
+     * Get all toppings with a specified status
+     * 
+     * @param string $status
+     * 
+     * @return array
+     */
+    public function filterByStatus(string $status): array
+    {
+        $result = [];
+        
+        // Generate the query
+
+        $sql = "SELECT id, name, status
+                FROM toppings
+                WHERE status = :status
+                ORDER BY name";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $resultSet = $pdo->prepare($sql);
+        $resultSet->execute([':status' => $status]);
+        
+        // Add the results to the array  
+        foreach ($resultSet as $row) {
+            $topping = $this->createFromDbRow($row);
+            
+            if ($topping !== null) {
+                array_push($result, $topping);
+            }
+        }
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the result
+        return $result;
+    }
+    
+    /**
+     * Get an array with the active toppings
+     * 
+     * @return array
+     */
+    public function getActiveToppingIds(): array
+    {
+        $result = [];
+        
+        // Generate the query
+        $sql = "SELECT id
+                FROM toppings
+                WHERE status = :status";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $resultSet = $pdo->prepare($sql);
+        $resultSet->execute([':status' => Topping::STATUS_ACTIVE]);
+        
+        // Add the ids to the array  
+        foreach ($resultSet as $row) {
+            array_push($result, intVal($row['id']));
+        }
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the result
+        return $result;        
+    }
+    
+    /**
      * Get the information of a topping specified by it's id
      * 
      * @param int $id

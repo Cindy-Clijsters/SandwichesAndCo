@@ -34,6 +34,13 @@
                                         <h4>Producten</h4>
                                     </div>
                                     <div class="card-body">
+                                        
+                                        {% if productMsg is not empty %}
+                                            <div class="alert alert-{{ productMsgType}}">
+                                                {{ productMsg }}
+                                            </div>
+                                        {% endif %}
+                                        
                                         {% if products is empty %}
                                         
                                             <p>Er zijn nog geen producten toegevoegd.</p>

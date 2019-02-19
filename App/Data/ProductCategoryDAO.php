@@ -46,6 +46,46 @@ class ProductCategoryDAO
     }
     
     /**
+     * Get all categories with a specified status
+     * 
+     * @param string $status
+     * 
+     * @return array
+     */
+    public function filterByStatus(string $status)
+    {
+        $result = [];
+        
+        // Generate the query
+        $sql = "SELECT id, name, status
+                FROM product_categories
+                WHERE status = :status
+                ORDER BY name";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $resultSet = $pdo->prepare($sql);
+        $resultSet->execute([':status' => $status]);
+        
+        foreach ($resultSet as $row) {
+            $productCategory = $this->createFromDbRow($row);
+            
+            if ($productCategory !== null) {
+                array_push($result, $productCategory);
+            }
+        }
+        
+        // Close the connection
+        $pdo = null;
+        
+        // Return the result
+        return $result;   
+    }
+    
+    
+    /**
      * Get a product category by it's id
      * 
      * @param int $id

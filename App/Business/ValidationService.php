@@ -145,7 +145,7 @@ class ValidationService
      * 
      * return string
      */
-    private function checkRequired(string $value):string
+    public function checkRequired(string $value):string
     {
         $result = '';
         
@@ -192,6 +192,54 @@ class ValidationService
         }
         
         return $result;
+    }
+    
+    /**
+     * Check if the value is numeric
+     * 
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function checkNumeric(string $value) :string
+    {
+        $result = '';
+        
+        $value = $this->convertToNumberFormat($value);
+        
+        if (!is_numeric($value)) {
+            $result = 'Dit veld moet een numerieke waarde bevatten (formaat: 9 999,99).';
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Check if the value is bigger than zero
+     * 
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function checkBiggerThenZero(string $value)
+    {
+        $result = '';
+        
+        $value = $this->convertToNumberFormat($value);
+        
+        if (is_numeric($value) && floatval($value) < 0) {
+            $result = 'Dit veld moet een waarde bevatten die groter is dan nul.';
+        }
+        
+        return $result;
+    }
+    
+    private function convertToNumberFormat(string $value)
+    {
+        $value = str_replace(',', '.', $value);
+        $value = str_replace(' ', '', $value);
+        
+        return $value;
     }
     
     /**
@@ -421,7 +469,7 @@ class ValidationService
     public function checkUniqueProductCategoryName(
         string $name,
         ?int $id = null
-    ) {
+    ):string{
         $result = '';
         
         $productCategorySvc = new ProductCategoryService();
@@ -430,6 +478,61 @@ class ValidationService
         if ($productCategory !== null) {
             if ($id !== null) {
                 if ($productCategory->getId() !== $id) {
+                    $result = 'Dit veld moet een unieke naam bevatten.';
+                }
+            } else {
+                $result = 'Dit veld moet een unieke naam bevatten.';
+            }
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Check if the product category exists and has a valid status
+     * 
+     * @param int $id
+     * 
+     * @return string
+     */
+    public function checkValidProductCategory(int $id):string 
+    {
+        $result = '';
+        
+        $productCategorySvc = new ProductCategoryService;       
+        $productCategory    = $productCategorySvc->getById($id);
+        
+        if ($productCategory !== null) {
+            if ($productCategory->getStatus() !== \App\Entities\ProductCategory::STATUS_ACTIVE) {
+                $result = 'Dit veld moet een actieve product category bevatten';
+            }
+        } else {
+            $result = 'Dit veld moet een geldige product category bevatten.';
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Check if the name of the product is unique
+     * 
+     * @param string $name
+     * @param int|null $id
+     * 
+     * @return string
+     */
+    public function checkUniqueProductName(
+        string $name,
+        ?int $id = null
+    ) {
+        $result = '';
+        
+        $productSvc = new ProductService();
+        $product    = $productSvc->getByName($name);
+        
+        if ($product !== null) {
+            if ($id !== null) {
+                if ($product->getId() !== $id) {
                     $result = 'Dit veld moet een unieke naam bevatten.';
                 }
             } else {

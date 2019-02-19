@@ -24,6 +24,34 @@ class ToppingService
     }
     
     /**
+     * Get all toppings with a specified status
+     * 
+     * @param string $status
+     * 
+     * @return array
+     */
+    public function filterByStatus(string $status): array
+    {
+        $toppingDAO = new ToppingDAO();
+        $toppings   = $toppingDAO->filterByStatus($status);
+        
+        return $toppings;
+    }
+    
+    /**
+     * Get the ID's of all active toppings
+     * 
+     * @return array
+     */
+    public function getActiveToppingIds(): array
+    {
+        $toppingDAO = new ToppingDAO();
+        $toppingIds = $toppingDAO->getActiveToppingIds();
+        
+        return $toppingIds;
+    }
+    
+    /**
      * Get a topping by it's id
      * 
      * @param int $id
