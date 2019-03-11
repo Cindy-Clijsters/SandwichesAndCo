@@ -40,6 +40,21 @@ class ProductService
     }
     
     /**
+     * Get a product by it's id
+     * 
+     * @param int $id
+     * 
+     * @return Product|null
+     */
+    public function getById(int $id): ?Product 
+    {
+        $productDAO = new ProductDAO();
+        $product    = $productDAO->getById($id);
+        
+        return $product;
+    }
+    
+    /**
      * Insert a new product
      * 
      * @param int $productCategoryId

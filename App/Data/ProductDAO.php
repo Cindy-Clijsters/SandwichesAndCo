@@ -48,6 +48,42 @@ class ProductDAO
     }
     
     /**
+     * Get a product by it's id
+     * 
+     * @param int $id
+     * 
+     * @return Product|null
+     */
+    public function getById(int $id):?Product 
+    {        
+        $product = null;
+        
+        // Generate the query
+        $sql = "SELECT p.id, p.name, p.price, p.status, pc.id AS pc_id, pc.name AS pc_name, pc.status as pc_status
+                FROM products p
+                JOIN product_categories pc ON pc.id = p.product_category_id
+                WHERE p.id = :id";
+        
+        // Open the connection
+        $pdo = DbConfig::getPdo();
+        
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        // Get the information of the product category
+        if ($stmt->rowCount() > 0) {
+            $row     = $stmt->fetch(PDO::FETCH_ASSOC);
+            $product = $this->createFromDbRow($row);
+        }
+        
+        // Close the connection
+        $pdo = null;
+        
+        return $product;          
+    }
+    
+    /**
      * Get the product by it's name
      * 
      * @param string $name
